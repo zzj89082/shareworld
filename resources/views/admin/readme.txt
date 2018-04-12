@@ -1,0 +1,10 @@
+登录login
+内容管理content
+发布管理publish
+广告管理poster
+用户管理user
+系统维护404.blade.php
+处理反馈feedback
+评论管理comment
+网站配置config
+回收站recover

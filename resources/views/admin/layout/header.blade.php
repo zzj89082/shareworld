@@ -139,7 +139,7 @@
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">You have 4 new notifications</p>
+                                <p class="blue">瘦巴巴的老爷们</p>
                             </li>
                             <li>
                                 <a href="#">

@@ -139,7 +139,7 @@
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">瘦巴巴的老爷们</p>
+                                <p class="blue">qhy</p>
                             </li>
                             <li>
                                 <a href="#">

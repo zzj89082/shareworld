@@ -49,7 +49,7 @@
                       <tr>
                          <td>{{ $v->POid }}</td>
                          <td>{{ $v->POauthor }}</td>
-                         <td><img src="{{ $v->POpic }}" alt="" style="width:200px;height:50px;"></td>
+                         <td><img src="{{ $v->POpic }}" alt="" style="height:50px;"></td>
                          <td>{{ $v->POtype }}</td>
                          <td>{{ $v->POprice }}</td>
                          <td>{{ $v->created_at }}</td>

@@ -22,7 +22,7 @@ class FeedbackController extends Controller
 
         
 
-        $fb_id = Feedback::orderBy('Fid','desc') -> lists('Fid');
+        $fb_id = Feedback::lists('Fid');
         $i = 1;
         foreach($fb_id as $k => $v)
         {
@@ -32,8 +32,10 @@ class FeedbackController extends Controller
             $feedback_data[$i]['Freplay'] = $feedback -> Freplay;
             $feedback_data[$i]['created_at'] = $feedback -> created_at;
             $feedback_data[$i]['updated_at'] = $feedback -> created_at;
-            $feedback_data[$i]['Uimage'] = $feedback -> feedback_users -> Uimage;
-            $feedback_data[$i]['Ualais'] = $feedback -> feedback_users -> Ualais;
+
+            /*$feedback_data[$i]['Uimage'] = $feedback -> feedback_users -> Uimage;
+            $feedback_data[$i]['Ualais'] = $feedback -> feedback_users -> Ualais;*/
+
             $i++;
 
         }
@@ -51,7 +53,7 @@ class FeedbackController extends Controller
         */
 
         //获取数据并且分页
-        $feedback_data = $feedback -> paginate(2);
+        $feedback_data = $feedback -> orderBy('Fid','desc') -> paginate(2);
         //加载模板
         return view('admin/feedback/list',[
                 'title' => '处理反馈',

@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'adminTitle' => 'shareworld后台管理系统',
+    /**
+     * 网站title
+     */
+    'webTitle' => 'shareworld 分享我的世界',
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths

@@ -19,7 +19,6 @@ class LoginMiddleware
             return $next($request);
         }else{
           return view('admin.login.login');
-
         }
 
     }

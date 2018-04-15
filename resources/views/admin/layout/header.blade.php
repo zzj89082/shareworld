@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
     <meta name="author" content="GeeksLabs">
+
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
     <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
@@ -234,8 +235,10 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="form_component.html">Form Elements</a></li>                          
-                          <li><a class="" href="form_validation.html">Form Validation</a></li>
+                          <li><a class="" href="/admin/content/">内容列表</a></li>    
+                          <li><a class="" href="/admin/content/create">添加内容</a></li>    
+                          <li><a class="" href="/admin/type/">内容分类列表</a></li>                          
+                          <li><a class="" href="/admin/type/create">添加内容分类</a></li>
                       </ul>
                   </li>       
                   <li class="sub-menu">
@@ -293,7 +296,7 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">                          
-                          <li><a class="" href="/admin/recover/list">广告回收</a></li>
+                          <li><a class="" href="/admin/recover/list">广告轮播回收</a></li>
                       </ul>
                   </li>
                   

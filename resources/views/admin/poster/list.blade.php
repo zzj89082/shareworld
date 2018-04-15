@@ -49,7 +49,7 @@
                       <tr>
                          <td>{{ $v->POid }}</td>
                          <td>{{ $v->POauthor }}</td>
-                         <td><img src="{{ $v->POpic }}" alt="" style="width:200px;height:50px;"></td>
+                         <td><img src="{{ $v->POpic }}" class="Rimg" style="height:50px;"></td>
                          <td>{{ $v->POtype }}</td>
                          <td>{{ $v->POprice }}</td>
                          <td>{{ $v->created_at }}</td>
@@ -76,6 +76,16 @@
               </section>
           </div>
       </div>
+      <script>
+        $('.Rimg').click(function(){
+          if($(this).css('height') == '50px'){
+            $('.Rimg').css('height','50px');
+            $(this).css('height','200px');
+          }else{
+            $(this).css('height','50px');
+          }
+        });
+      </script>
       <!-- page end-->
   </section>
 </section>

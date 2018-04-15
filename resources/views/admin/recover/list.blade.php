@@ -70,7 +70,7 @@
                       <tr>
                          <td>{{ $v->POid }}</td>
                          <td>{{ $v->POauthor }}</td>
-                         <td><img src="{{ $v->POpic }}" style="height:50px;"></td>
+                         <td><img class="Rimg" src="{{ $v->POpic }}" style="height:50px;"></td>
                          <td>{{ $v->POtype }}</td>
                          <td>{{ $v->POprice }}</td>
                          <td>{{ $v->created_at }}</td>
@@ -81,7 +81,7 @@
                           </div>
                           </td>
                       </tr> 
-                      
+
                       @endforeach                   
                    </tbody>
                 </table>
@@ -123,7 +123,7 @@
                               <a class="btn btn-danger" onclick="return confirm('确认要删除吗？')" href='{{url("/admin/recover/rdelete/$v->Rid")}}'><i class="icon_close_alt2"> 删除</i></a>
                           </div>
                           </td>
-                      </tr> 
+                      </tr>
                       @endforeach                   
                    </tbody>
                 </table>
@@ -132,16 +132,6 @@
               </section>
           </div>
       </div>
-      <script>
-        $('.Rimg').click(function(){
-          if($(this).css('height') == '50px'){
-            $('.Rimg').css('height','50px');
-            $(this).css('height','200px');
-          }else{
-            $(this).css('height','50px');
-          }
-        });
-      </script>
     <!-- 轮播图回收结束 -->
 
           <!-- <script type="text/javascript">
@@ -163,5 +153,15 @@
 </section>
 <!--main content end-->
 
+      <script>
+        $('.Rimg').click(function(){
+          if($(this).css('height') == '50px'){
+            $('.Rimg').css('height','50px');
+            $(this).css('height','200px');
+          }else{
+            $(this).css('height','50px');
+          }
+        });
+      </script>
 
 @endsection

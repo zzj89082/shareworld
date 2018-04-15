@@ -18,19 +18,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $login = true;
-        // $login = false;
-
-
-        if($login == true){  
-            //获取网站配置
-            $data = Config::find(1);
-            $rollimg = Rollimg::get();
-            session(['data'=>$data]);
-            return view('admin/index',['data'=>$data,'rollimg'=>$rollimg]);
-        } else {
-            return view('admin/login/login');
-        }
+        //获取网站配置
+        $data = Config::find(1);
+        $rollimg = Rollimg::get();
+        session(['data'=>$data]);
+        return view('admin/index',['data'=>$data,'rollimg'=>$rollimg]); 
     }
 
 }

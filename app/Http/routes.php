@@ -10,20 +10,30 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//---------------------------------------------------------------
+Route::get('/', function () {
+    return view('/home/index');
+});
+//前台登录路径---------只是测试
+Route::get('/home/login',function(){
+	return view('/home/login/login');
+});
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+//---------------------------------------------------------------
+/*
+	前台路由组，对前台路由进行统一管理
+*/
+// Route::group(['middleware'=>'login'],function(){
+	
 
-//前台
-// Route::resource('/','Home\HomeController');
+// });
 
-
+//---------------------------------------------------------------
 /*
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>'login','middleware'=>'header'],function(){
+Route::group(['middleware'=>['login','header']],function(){
 
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');
@@ -52,6 +62,8 @@ Route::group(['middleware'=>'login','middleware'=>'header'],function(){
 	/**********张智建**********/
 	//后台广告控制器
 	Route::resource('/admin/poster','Admin\PosterController');
+	//后台评论管理
+	Route::resource('/admin/comment','Admin\CommentController');
 
 	//后台处理反馈控制器
 	Route::resource('/admin/feedback','Admin\FeedbackController');
@@ -61,3 +73,4 @@ Route::group(['middleware'=>'login','middleware'=>'header'],function(){
 	Route::resource('/admin/user','Admin\User\UserController');
 
 });
+//---------------------------------------------------------------

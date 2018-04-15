@@ -139,7 +139,7 @@
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">瘦巴巴的老爷们</p>
+                                <p class="blue">hello mather fucker</p>
                             </li>
                             <li>
                                 <a href="#">
@@ -276,14 +276,11 @@
                   </li>
                              
                   <li class="sub-menu">
-                      <a href="javascript:;" class="">
+                      <a href="/admin/comment" class="">
                           <i class="icon_table"></i>
                           <span>评论管理</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
-                      <ul class="sub">
-                          <li><a class="" href="basic_table.html">Basic Table</a></li>
-                      </ul>
+                      
                   </li>
                   
                   <li class="sub-menu">

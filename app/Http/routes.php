@@ -23,8 +23,8 @@
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>'login','middleware'=>'header'],function(){
-
+Route::group(['middleware'=>['login','header']],function(){
+	/*'middleware'=>'header'*/
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');
 
@@ -61,3 +61,7 @@ Route::group(['middleware'=>'login','middleware'=>'header'],function(){
 	Route::resource('/admin/user','Admin\User\UserController');
 
 });
+//访问login控制器
+Route::controller('/admin','Admin\login\LoginController');
+//Route::post('/admin/ajax','Admin\login\LoginController@testu');
+//Route::post('/admin/ajax1','Admin\login\LoginController@testp');

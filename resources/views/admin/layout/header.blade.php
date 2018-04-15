@@ -177,11 +177,11 @@
                     <!-- alert notification end-->
                     <!-- user login dropdown start-->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="">
                             <span class="profile-ava">
-                                <img alt="" src="/admin/img/avatar1_small.jpg">
+                                <img alt="" src="{{session('Uinfo')['Uimage']}}" style="width:30px;height:30px;">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username">{{session('Uinfo')['Ualais']}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">

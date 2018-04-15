@@ -73,4 +73,9 @@ Route::group(['middleware'=>['login','header']],function(){
 	Route::resource('/admin/user','Admin\User\UserController');
 
 });
+
 //---------------------------------------------------------------
+
+//访问login控制器
+Route::controller('/admin','Admin\login\LoginController');
+

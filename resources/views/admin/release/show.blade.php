@@ -54,7 +54,7 @@
 					</script>				
 				@endforeach
 		@else
-			<div style="margin-left:340px;width:760px; box-sizing: border-box; height: 200px;">
+			<div style="width:480px;box-sizing: border-box; height: 200px;margin:auto;">
 		      <video width="470" height="200" controls="controls">
 				  <source src="{{ $data->Evideo }}" type="video/mp4" />
 				  <source src="{{ $data->Evideo }}" type="video/ogg" />

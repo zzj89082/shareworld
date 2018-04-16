@@ -3,14 +3,7 @@
      
       <section id="main-content">
           <section class="wrapper">
-           @if(session('success'))
-                <div class="alert alert-success fade in">
-                  <button data-dismiss="alert" class="close close-sm" type="button">
-                      <i class="icon-remove"></i>
-                  </button>
-                  {{  session('success') }}
-                </div>
-                @endif            
+                     
               <!--header头部-->
 			<div class="row">
 				<div class="col-lg-12">
@@ -63,15 +56,15 @@
                     <div class="profile-widget profile-widget-info">
                           <div class="panel-body">
                             <div class="col-lg-2 col-sm-2">
-                              <h4>SHARE WORLD</h4>               
+                              <h4>{{session('Uinfo')['Ualais']}}</h4>               
                               <div class="follow-ava">
-                                  <img src="img/profile-widget-avatar.jpg" alt="">
+                                  <img alt="" src="{{session('Uinfo')['Uimage']}}" style="width:75px;height:75px;">
                               </div>
-                              <h6>Administrator</h6>
+                              <h6>administrator</h6>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
-                                <p>Hello I’m Jenifer Smith, a leading expert in interactive and creative design.</p>
-                                <p>@jenifersmith</p>
+                                <p>Hello administrator, a leading expert in interactive and creative design.</p>
+                                <p>{{session('Uinfo')['Uemail']}}</p>
 								<p><i class="fa fa-user"> 用户名</i></p>
                                 <h6>
                                     <span><i class="icon_clock_alt"></i>{{ date('H:s',time()) }}</span>

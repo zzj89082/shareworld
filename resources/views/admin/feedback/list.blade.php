@@ -6,7 +6,6 @@
 	  <div class="row">
 			<div class="col-lg-12">
 				<h3 class="page-header"><i class="fa fa-user-md"></i> {{$title}}</h3>
-				@include('admin/layout/prompt')
 			</div>
 		</div>
           <div class="row">
@@ -15,15 +14,15 @@
                 <div class="profile-widget profile-widget-info">
                       <div class="panel-body">
                         <div class="col-lg-2 col-sm-2">
-                          <h4>Jenifer Smith</h4>               
+                          <h4>{{session('Uinfo')['Ualais']}}</h4>               
                           <div class="follow-ava">
-                              <img src="img/profile-widget-avatar.jpg" alt="">
+                              <img alt="" src="{{session('Uinfo')['Uimage']}}" style="width:75px;height:75px;">
                           </div>
-                          <h6>Administrator</h6>
+                          <h6>administrator</h6>
                         </div>
                         <div class="col-lg-10 col-sm-10 follow-info">
                             <p>Hello I’m Jenifer Smith, a leading expert in interactive and creative design.</p>
-                            <p>@jenifersmith</p>
+                            <p>{{session('Uinfo')['Uemail']}}</p>
 							              <p><i class="fa fa-twitter"> 当前系统时间</i></p>
                             <h6>
                                 <span><i class="icon_clock_alt"></i>{{ date('H:i:s',time()) }}</span>

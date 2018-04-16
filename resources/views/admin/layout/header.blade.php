@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
     <meta name="author" content="GeeksLabs">
+
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
     <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
@@ -129,52 +130,6 @@
                         </ul>
                     </li>
                     <!-- inbox notificatoin end -->
-                    <!-- alert notification start-->
-                    <li id="alert_notificatoin_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-                            <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">系统维护</span>
-                        </a>
-                        <ul class="dropdown-menu extended notification">
-                            <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
-                                <p class="blue">hello mather fucker</p>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-primary"><i class="icon_profile"></i></span> 
-                                    Friend Request
-                                    <span class="small italic pull-right">5 mins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-warning"><i class="icon_pin"></i></span>  
-                                    John location.
-                                    <span class="small italic pull-right">50 mins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-danger"><i class="icon_book_alt"></i></span> 
-                                    Project 3 Completed.
-                                    <span class="small italic pull-right">1 hr</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-success"><i class="icon_like"></i></span> 
-                                    Mick appreciated your work.
-                                    <span class="small italic pull-right"> Today</span>
-                                </a>
-                            </li>                            
-                            <li>
-                                <a href="#">See all notifications</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- alert notification end-->
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
@@ -222,7 +177,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="#">
+                      <a class="" href="/" target="_blank">
                           <i class="icon_house_alt"></i>
                           <span>前台首页</span>
                       </a>
@@ -234,20 +189,22 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="form_component.html">Form Elements</a></li>                          
-                          <li><a class="" href="form_validation.html">Form Validation</a></li>
+                          <li><a class="" href="/admin/content/">内容列表</a></li>    
+                          <li><a class="" href="/admin/content/create">添加内容</a></li>    
+                          <li><a class="" href="/admin/type/">内容分类列表</a></li>                          
+                          <li><a class="" href="/admin/type/create">添加内容分类</a></li>
                       </ul>
                   </li>       
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_desktop"></i>
-                          <span>发布管理</span>
+                          <span>用户发布管理</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="general.html">Elements</a></li>
-                          <li><a class="" href="buttons.html">Buttons</a></li>
-                          <li><a class="" href="grids.html">Grids</a></li>
+                          <li><a class="" href="{{ url('/admin/release') }}">发布列表</a></li>
+                          <li><a class="" href="{{ url('/admin/derelease') }}">未通过</a></li>
+                          <!-- <li><a class="" href="grids.html">Grids</a></li> -->
                       </ul>
                   </li>
                   <!-- 广告管理start -->
@@ -284,14 +241,11 @@
                   </li>
                   
                   <li class="sub-menu">
-                      <a href="javascript:;" class="">
+                      <a href="/admin/recover/list" class="">
                           <i class="icon_documents_alt"></i>
                           <span>回收站</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
-                      <ul class="sub">                          
-                          <li><a class="" href="/admin/recover/list">广告回收</a></li>
-                      </ul>
+
                   </li>
                   
               </ul>
@@ -299,6 +253,29 @@
           </div>
       </aside>
       <!--sidebar end-->
+       <script type="text/javascript">
+        //layUI
+        //一般直接写在一个js文件中
+        layui.use(['layer', 'form'], function(){
+          var layer = layui.layer
+          ,form = layui.form;
+        });
+        </script>
+
+        <!-- 读取模版的提示信息 -->
+        @if(session('success'))
+        <script>
+          layer.msg("{{session('success')}}",{time: 1000});
+        </script>
+        @endif
+        
+        @if(session('error'))
+
+          <script>
+          layer.msg("{{ session('error') }}", {icon: 5,anim: 6,time: 1000});
+        </script>
+        @endif
+      <!-- 读取模版的提示信息结束 -->
 
         
 

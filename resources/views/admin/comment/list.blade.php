@@ -18,7 +18,6 @@
 		                </ul>
 		                <!--  search form end -->     
 					</h3>
-					@include('admin/layout/prompt')
 				</div>
 			</div>
               <!-- page start-->

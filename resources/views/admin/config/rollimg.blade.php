@@ -1,16 +1,6 @@
 @extends('admin/layout/header')
 
 @section('content')
-
-		
-@if(session('error'))
-                <div class="alert alert-block alert-danger fade in">
-                  <button data-dismiss="alert" class="close close-sm" type="button">
-                      <i class="icon-remove"></i>
-                  </button>
-                  <strong>{{ session('error') }}</strong>
-              </div>
-                @endif   
 <section id="main-content">
  	<section class="wrapper">   
  	   

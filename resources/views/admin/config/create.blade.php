@@ -8,14 +8,6 @@
 
 <section id="main-content">
  	<section class="wrapper">   
- 	   @if(session('error'))
-                <div class="alert alert-block alert-danger fade in">
-                  <button data-dismiss="alert" class="close close-sm" type="button">
-                      <i class="icon-remove"></i>
-                  </button>
-                  <strong>{{ session('error') }}</strong>
-              </div>
-                @endif   
 	    <div class="form">
 	    	<h1 class="text-center">{{ $title }}</h1>
 	        <form class="form-validate form-horizontal" id="feedback_form" method="post" enctype="multipart/form-data" action="{{ url('admin/config/add') }}" novalidate="novalidate">

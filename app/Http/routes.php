@@ -49,6 +49,10 @@ Route::group(['middleware'=>['login','header']],function(){
 	Route::get('/admin/recover/rupdate/{id}','Admin\RecoverController@rupdate');
 	//后台轮播回收站删除控制器
 	Route::get('/admin/recover/rdelete/{id}','Admin\RecoverController@rdelete');
+	//后台内容分类管理分类控制器
+	Route::resource('/admin/type','Admin\TypeController');
+	//后台添加内容控制器
+	Route::resource('/admin/content','Admin\ContentController');
 	
 	/**********马可**********/
 	//网站配置
@@ -58,6 +62,11 @@ Route::group(['middleware'=>['login','header']],function(){
 	Route::get('/admin/config/rollimg','Admin\ConfigController@rollimg');
 	Route::post('/admin/config/insertimg','Admin\ConfigController@insertimg');
 	Route::get('/admin/config/delete/{id}','Admin\ConfigController@delete');
+
+	//发布管理
+	Route::resource('/admin/release','Admin\ReleaseController');
+	//未通过
+	Route::resource('/admin/derelease','Admin\DereleaseController');
 
 	/**********张智建**********/
 	//后台广告控制器

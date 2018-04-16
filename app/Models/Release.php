@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Release extends Model
 {
-    //指定表
+	use SoftDeletes;
+    //更改表名
     public $table = 'sw_release';
-    //指定主键
+    //更改id
     public $primaryKey = 'Eid';
+
 }

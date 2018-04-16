@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa-table"></i>用户管理</h3>
                 <!-- prompt -->
-                @include('admin/layout/prompt')
+               
                 <form action="/admin/user" method="get">
                     分　页：<input type="text" name="show" value="{{ $search['show'] or '' }}"placeholder="可选一页几条">&nbsp;&nbsp;　
                     用　户：<input type="text" name="usearch" value="{{$search['usearch'] or ''}}">&nbsp;&nbsp;

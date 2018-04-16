@@ -9,7 +9,6 @@
       <h3 class="page-header"><i class="fa fa-files-o"></i> {{$title}}
       <!-- prompt -->
       </h3>
-      @include('admin/layout/prompt')
       
     </div>
   </div>

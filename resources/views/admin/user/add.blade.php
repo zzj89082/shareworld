@@ -6,25 +6,13 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa-files-o"></i> 用户管理</h3>
-                {{--<ol class="breadcrumb">--}}
-                    {{--<li><i class="fa fa-home"></i><a href="index.html">admin</a></li>--}}
-                    {{--<li><i class="icon_document_alt"></i>user</li>--}}
-                    {{--<li><i class="fa fa-files-o"></i>add</li>--}}
-                {{--</ol>--}}
+                <h3 class="page-header"><i class="fa fa-files-o"></i> 用户添加</h3>
+                
                 <!-- prompt -->
 
             </div>
         </div>
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+        
         <!-- Form validations -->
         <div class="row">
             <div class="col-lg-12">

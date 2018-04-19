@@ -80,7 +80,7 @@ body {
     position: relative;
     padding: 0 3em;
 }
-.sub-main-w3 input[type="email"], .sub-main-w3 input[type="password"] {
+.sub-main-w3 input[type="email"], .sub-main-w3 input[type="password"], .sub-main-w3 input[type="text"] {
     outline: none;
     font-size: 1em;
     border: none;
@@ -92,7 +92,7 @@ body {
     letter-spacing: 1px;
   
 }
-.sub-main-w3 input[type="email"]:focus, .sub-main-w3 input[type="password"]:focus{
+.sub-main-w3 input[type="email"]:focus, .sub-main-w3 input[type="password"]:focus,.sub-main-w3 input[type="text"]:focus {
   border:1px solid #00ad45;
 }
 
@@ -237,10 +237,10 @@ i.twitter{
 }
 /* Brand Colours */
 .facebook{
-    background: #3b5998;
+    background: #137DFF;
 }
 .twitter{
-    background: #00acee;
+    background: #137DFF;
 }
 /* Slide Animation */
 .slide-social:hover .slide{

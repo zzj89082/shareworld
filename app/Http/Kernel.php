@@ -31,5 +31,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'header' => \App\Http\Middleware\HeaderMiddleware::class,
         'login'=>\App\Http\Middleware\LoginMiddleware::class,
+        'home_login'=>\App\Http\Middleware\HomeLoginMiddleware::class,
     ];
 }

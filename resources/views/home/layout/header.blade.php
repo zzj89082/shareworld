@@ -31,11 +31,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="h-top" id="home">
 		   <div class="top-header">
 				  <ul class="cl-effect-16 top-nag">
-						<li><a href="registration.html" data-hover="Registration">Registration</a></li> 
-						<li><a href="about.html" data-hover="About">About</a></li>
-						<li><a href="services.html" data-hover="SERVICES">SERVICES</a></li>
-						<li><a href="login.html" data-hover="Login">Login</a></li>
-						<li><a href="contact.html" data-hover="CONTACT">Contact</a></li>
+						<li><a href="registration.html" data-hover="联系我们">联系我们</a></li> 
+						<li><a href="about.html" data-hover="关于我们">关于我们</a></li>
+						<li><a href="services.html" data-hover="在线咨询">在线咨询</a></li>
+						<li><a href="login.html" data-hover="登录">登录</a></li>
 					</ul>
 					<div class="search-box">
 					    <div class="b-search">
@@ -57,12 +56,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="top-menu">
 
 					<ul class="cl-effect-16">
-						<li><a class="active" href="index.html" data-hover="HOME">Home</a></li> 
-						<li><a href="about.html" data-hover="About">About</a></li>
-						<li><a href="grid.html" data-hover="Grids">Grids</a></li>
-						<li><a href="services.html" data-hover="Services">Services</a></li>
-						<li><a href="gallery.html" data-hover="Gallery">Gallery</a></li>
-						<li><a href="contact.html" data-hover="CONTACT">Contact</a></li>
+						<li><a class="active" href="index.html" data-hover="热门">热门</a></li> 
+						<li><a href="about.html" data-hover="头条">头条</a></li>
+						<li><a href="grid.html" data-hover="视频">视频</a></li>
+						<li><a href="services.html" data-hover="新鲜事">新鲜事</a></li>
+						<li><a href="gallery.html" data-hover="搞笑">搞笑</a></li>
+						<li><a href="contact.html" data-hover="时尚">时尚</a></li>
+						<li><a href="contact.html" data-hover="军事">军事</a></li>
+						<li><a href="contact.html" data-hover="美女">美女</a></li>
+						<li><a href="contact.html" data-hover="体育">体育</a></li>
 					</ul>
 					<!-- script-for-nav -->
 					<script>
@@ -78,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a class="twitt" href="#"></a></li>
 							<li><a class="goog" href="#"></a></li>
 							<li><a class="drib" href="#"></a></li>
-					   </ul>
+					</ul>
 			    </div>
 			</div>
 	<div class="col-md-9 main">

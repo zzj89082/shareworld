@@ -215,8 +215,8 @@ ul.top-nag  a.active{
     display:block;
     color: #fff;
     vertical-align: top;
-       text-align: center;
-    margin-bottom:2em;
+    text-align: center;
+    margin-bottom:1em;
 }
 .top-menu ul li a{
     color: #fff;

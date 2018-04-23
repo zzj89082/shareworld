@@ -182,7 +182,7 @@
                           <span>前台首页</span>
                       </a>
                   </li>
-				  <li class="sub-menu">
+				      <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_document_alt"></i>
                           <span>内容管理</span>

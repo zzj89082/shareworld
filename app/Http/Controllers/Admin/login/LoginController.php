@@ -84,13 +84,12 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function ostAjax2(Request $request)
+    public function postAjax2(Request $request)
     {
         $data = $request->all();
-        $res = Hash::make($data['upassword']);
-        $data_two = User::where('Upassswd',$res)->first();
+        $data_two = User::where('Upassswd',$data['upassword'])->where('Ualais',$data['username'])->first();
         //检测是否存在密码
-        if(empty($data_one)){
+        if(empty($data_two)){
             echo 1;//密码不存在
         }else {
             echo 2;//密码存在

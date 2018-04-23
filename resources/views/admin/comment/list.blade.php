@@ -29,7 +29,7 @@
                               <div class="tab-content">
                                   <div id="recent-activity" class="tab-pane active">
                                       <div class="profile-activity">
-                                      <!-- 反馈遍历 -->
+                                      <!-- 评论遍历 -->
                                       @foreach($data as $k => $v)                                             
                                           <div class="act-time">                                      
                                               <div class="activity-body act-in">

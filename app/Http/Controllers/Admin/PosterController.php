@@ -29,7 +29,7 @@ class PosterController extends Controller
         $page_count = $request -> input('page_count',3);
         //创建数据对象
         $poster = new Poster;
-        $poster = Poster::where('POid','>','0');
+        $poster = Poster::where('POid','>','0')-> orderby('POid','desc');
         //判断是否存在
         if(isset($POauthor) && !empty($POauthor)){
             $poster -> where('POauthor','like','%'.$POauthor.'%');

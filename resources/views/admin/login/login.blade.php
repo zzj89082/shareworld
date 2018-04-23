@@ -52,11 +52,11 @@
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                <input  id ="upass" type="text" class="form-control" placeholder="密码" name="Upassswd" value="">
+                <input  id ="upass" type="password" class="form-control" placeholder="密码" name="Upassswd" value="">
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                <input  id ="upass" type="password" class="form-control" style="width: 140px;"  placeholder="验证码" name="code" value="">
+                <input  id ="code" type="password" class="form-control" style="width: 140px;"  placeholder="验证码" name="code" value="">
                 <img src="/admin/code" title="点击切换" onclick="rand_code(this)" style="height: 42px;border-radius: 10px;float:right;">
             </div>
             {{--<div class="input-group">--}}
@@ -97,28 +97,25 @@
                }
            });
            $.post('/admin/ajax',{'username':Ualais},function(msg){
-
                 if(msg != 2){
                     layer.alert('账号名输入错误',{icon: 5});
                 }
-           },'JSON');
+           },'HTML');
        });
        //ajax 实现登录时无刷新验密码
        $('#upass').blur(function(){
-           //layer.alert(123);
+           var Ualais = $('#username').val();
            var Upassswd = $('#upass').val();
-
-           //console.log(Upassswd);
            $.ajaxSetup({
                headers: {
                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                }
            });
-           $.post('/admin/ajax2',{'upassword':Upassswd},function(msg){
+           $.post('/admin/ajax2',{'username':Ualais,'upassword':Upassswd},function(msg){
                if(msg != 2){
                    layer.alert('密码输入错误');
                }
-           },'JSON');
+           },'HTML');
        });
 
         //cookie实现记住密码

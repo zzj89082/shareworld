@@ -16,5 +16,8 @@ class Content extends Model
     {
         return $this->belongsTo('App\Models\Type','Tid');
     }
-
+    public function content_user()
+    {
+        return $this->belongsTo('App\Models\Admin\User','Uid');
+    }
 }

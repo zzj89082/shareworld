@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::get('/home/login',function(){
 	return view('/home/login/login');
 });
+//前台未登录是的头条及视频路由
+Route::controller('/home','home\QhyController');
 
 //---------------------------------------------------------------
 /*
@@ -33,7 +35,7 @@ Route::get('/home/login',function(){
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>['login','header']],function(){
+Route::group(['middleware'=>'login'],function(){
 
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');
@@ -84,7 +86,7 @@ Route::group(['middleware'=>['login','header']],function(){
 });
 
 //---------------------------------------------------------------
-
+/**********齐红运**********/
 //访问login控制器
 Route::controller('/admin','Admin\login\LoginController');
 

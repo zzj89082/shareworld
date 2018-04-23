@@ -52,7 +52,7 @@
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                <input  id ="upass" type="text" class="form-control" placeholder="密码" name="Upassswd" value="">
+                <input  id ="upass" type="password" class="form-control" placeholder="密码" name="Upassswd" value="">
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>

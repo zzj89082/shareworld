@@ -24,8 +24,11 @@ Route::group(['middleware'=>'home_login'],function(){
 Route::controller('/home/login','Home\LoginController');
 //前台首页
 Route::get('/', function () { return view('/home/index');});
+
 //忘记密码
 Route::controller('/home/forgetlogin','Home\forgetLoginController');
+//首页展示数据
+Route::controller('/home','Home\HomeController');
 //后台register注册
 //---邮箱
 	//邮箱激活

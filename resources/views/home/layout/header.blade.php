@@ -56,12 +56,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="top-menu">
 
 					<ul class="cl-effect-16">
-						<li><a class="active" href="index.html" data-hover="热门">热门</a></li> 
+						<li><a href="index.html" data-hover="热门">热门</a></li> 
 						<li><a href="about.html" data-hover="头条">头条</a></li>
 						<li><a href="grid.html" data-hover="视频">视频</a></li>
-						<li><a href="services.html" data-hover="新鲜事">新鲜事</a></li>
-						<li><a href="gallery.html" data-hover="搞笑">搞笑</a></li>
-						<li><a href="contact.html" data-hover="时尚">时尚</a></li>
+						<li><a data-hover="新鲜事" href="{{url('/home/novelty')}}">新鲜事</a></li>
+						<li><a href="{{url('/home/cold')}}" data-hover="搞笑">搞笑</a></li>
+						<li><a href="{{url('/home/fashion')}}" data-hover="时尚">时尚</a></li>
 						<li><a href="contact.html" data-hover="军事">军事</a></li>
 						<li><a href="contact.html" data-hover="美女">美女</a></li>
 						<li><a href="contact.html" data-hover="体育">体育</a></li>
@@ -145,7 +145,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									});
 								</script>
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-
+	<script type="text/javascript">
+		$(function(){
+			$(document).scroll(function(){
+				//页面
+				var height = $('.main').height();
+				height = height - 45;
+				$('.full>.top-nav').css('padding-bottom',height+'px');
+			});
+		});
+	</script>
 
 </body>
 </html>

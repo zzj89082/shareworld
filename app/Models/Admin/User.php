@@ -12,4 +12,5 @@ class User extends Model
     public $table = 'sw_users';
     public $primaryKey = 'Uid';
     public $timestamps = true;
+
 }

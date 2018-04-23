@@ -152,6 +152,7 @@ ul.top-nag  a.active{
 		background-color: #f26649;
 		width: 15%;
 	     padding: 3em 1em 95.6em 1em;
+      height:1000px;
 		   position:absolute;
 }
 .copyrights{
@@ -1567,7 +1568,7 @@ ul.bottom i {
 	.top-nav {
 		float: left;
 		width: 15%;
-		padding: 3em 1em 89.2em 1em;
+		padding: 3em 1em 1118px 1em;    
 	}
 	.top-nav.about {
 		float: left;

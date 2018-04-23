@@ -17,4 +17,12 @@ class Content extends Model
         return $this->belongsTo('App\Models\Type','Tid');
     }
 
+    //获取哪个用户发送的
+	public function novelty_user()
+	{
+		return $this->belongsTo('App\Models\Admin\User','Uid');
+	}    
+
+	//获取内容的评论
+	
 }

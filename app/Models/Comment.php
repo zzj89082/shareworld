@@ -28,4 +28,10 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Models\Content','Cid');
     }
+
+    //获取哪个用户评论的
+    public function comment_user()
+    {
+        return $this->belongsTo('App\Models\Admin\User','Uid');
+    }
 }

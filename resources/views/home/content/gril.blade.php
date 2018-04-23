@@ -3,14 +3,14 @@
 
 	<!-- 内容区域 -->
 	<div class="banner-section">
-    <h3 class="tittle">{{$title}} <i class="glyphicon glyphicon-flag"></i></h3>
+    <h3 class="tittle">{{$title}} <i class="glyphicon glyphicon-eye-open"></i></h3>
 	 	<!--/top-news-->
 		<div class="top-news" style="margin-top:-50px;">
 		  	<!-- 中间 -->
 			<div class="top-inner second">
-				@foreach($military_data as $k => $v)
+				@foreach($gril_data as $k => $v)
 					<div class="col-md-6 top-text">
-						 <a href="/home/show/{{$v->Cid}}"><img src="{{$v->Cpicture}}" class="img-responsive" alt="" style="height:300px;"></a>
+						 <a href="/home/show/{{$v->Cid}}"><img src="{{$v->Cpicture}}" class="img-responsive" alt="" style="height:260px;"></a>
 						    <h5 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h5>
 							<p>{{mb_substr($v->Ccontent,0,66).'..'}}</p>
 						    <p>{{strtok($v->created_at,' ')}}
@@ -21,7 +21,7 @@
 							    	<span class="glyphicon glyphicon-eye-open"></span>56 
 							    </a>
 							    <a class="span_link" href="#" style="float:right">
-							    	<span class="glyphicon glyphicon-comment"></span>{{$military_data2[$k]['count']}} 
+							    	<span class="glyphicon glyphicon-comment"></span>{{$gril_data2[$k]['count']}} 
 							    </a>
 						    </p>
 
@@ -34,7 +34,7 @@
 				 <div class="clearfix"> </div>
 				 <!-- 分页 -->
 				 <div class="text-center">
-	                  {!! $military_data->render() !!}
+	                  {!! $gril_data->render() !!}
 			     </div>
 		 	</div>
 			<!-- 中间end -->
@@ -48,15 +48,20 @@
 	 <div class="general-news">
 		<div class="general-inner">
 				<div class="general-text">
-					 <a href="single.html"><img src="{{$military_hot['Cpicture']}}" class="img-responsive" alt=""></a>
-					    <h5 class="top"><a href="single.html">{{mb_substr($military_hot['Ctitle'],0,16).'..'}}</a></h5>
-						<p>{{mb_substr($military_hot->Ccontent,0,66).'..'}}</p>
-					    <p>{{strtok($military_hot['created_at'],' ')}}
+					 	<video width="320" height="350" controls="controls">
+							  <source src="{{ $gril_hot->Cvideo }}" type="video/mp4" />
+							  <source src="{{ $gril_hot->Cvideo }}" type="video/ogg" />
+							  <source src="{{ $gril_hot->Cvideo }}" type="video/webm" />
+							  <object data="{{ $gril_hot->Cvideo }}" width="100%" height="100%">
+							    	<embed src="{{ $gril_hot->Cvideo }}" width="100%" height="100%" />
+							  </object>
+						</video>
+					    <h5 class="top"><a href="#" title="{{$gril_hot['Earticle']}}">{{mb_substr($gril_hot['Ctitle'],0,16).'..'}}</a></h5>
 					    <a class="span_link" href="#">
-					    	<span class="glyphicon glyphicon-comment"></span>{{$military_hot['count']}}  
+					    	<span class="glyphicon glyphicon-comment"></span>{{$gril_hot['count']}} 
 					    </a>
 					    <a class="span_link" href="#">
-					    	<span class="glyphicon glyphicon-eye-open"></span>56 
+					    	<span class="glyphicon glyphicon-eye-open"></span>56  
 					    </a>
 					    <a class="span_link" href="single.html">
 					    	<span class="glyphicon glyphicon-circle-arrow-right"></span>

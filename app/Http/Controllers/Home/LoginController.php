@@ -178,12 +178,15 @@ class LoginController extends Controller
         }  
 
         // 全都成功后
-        //把内容存入cookie
+
+        //把内容存入session
         if(!empty($data1['Uemail'])){
-            return redirect('/')-> withCookie('home_login',$data1['Uemail'],60);
+            session(['home_login'=>$data1['Uemail']]);
+            return redirect('/');
         }
         if(!empty($data2['Utel'])){
-            return redirect('/')-> withCookie('home_login',$data2['Utel'],60);
+            session(['home_login'=>$data2['Utel']]);
+            return redirect('/');
         }
     }
 }

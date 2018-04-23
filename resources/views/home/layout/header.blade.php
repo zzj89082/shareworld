@@ -62,8 +62,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a data-hover="新鲜事" href="{{url('/home/novelty')}}">新鲜事</a></li>
 						<li><a href="{{url('/home/cold')}}" data-hover="搞笑">搞笑</a></li>
 						<li><a href="{{url('/home/fashion')}}" data-hover="时尚">时尚</a></li>
-						<li><a href="#" data-hover="军事">军事</a></li>
-						<li><a href="#" data-hover="美女">美女</a></li>
+						<li><a href="/home/military" data-hover="军事">军事</a></li>
+						<li><a href="/home/gril" data-hover="美女">美女</a></li>
 						<li><a href="/home/sport" data-hover="体育">体育</a></li>
 					</ul>
 					<!-- script-for-nav -->

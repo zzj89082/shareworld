@@ -16,8 +16,8 @@ class HomeLoginMiddleware
     public function handle($request, Closure $next)
     {
       //request变量 记录所有的请求参数
-      $login = $request->cookie('home_login');;
-      if(!empty($login)){
+      // $login = $request->cookie('home_login');
+      if($request->session()->has('home_login')){
             //cookie 来检测用户是否登录
             //进入下一层 请求
             return $next($request);

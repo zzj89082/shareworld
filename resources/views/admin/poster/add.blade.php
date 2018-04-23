@@ -49,6 +49,18 @@
                                   </div>
                               </div>
                               <div class="form-group ">
+                                  <label for="curl" class="control-label col-lg-2">描述</label>
+                                  <div class="col-lg-5">
+                                      <input class="form-control " id="POmiaoshu" type="text" name="POmiaoshu" />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
+                                  <label for="curl" class="control-label col-lg-2">url链接</label>
+                                  <div class="col-lg-5">
+                                      <input class="form-control " id="POurl" type="text" name="POurl" />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
                                   <label for="cname" class="control-label col-lg-2">广告图 <span class="required">*</span></label>
                                   <div class="col-lg-5">
                                       <input class="form-control" id="POpic" name="POpic" minlength="5" type="file" required />

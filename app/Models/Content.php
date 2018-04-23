@@ -17,6 +17,7 @@ class Content extends Model
     {
         return $this->belongsTo('App\User','Uid');
     }
+   
 
     //获取哪个用户发送的
 	public function novelty_user()

@@ -127,13 +127,13 @@ class forgetLoginController extends Controller
         if($user->Uemail == $data['email']) {
             $username = $user->Ualais; //用户名
             $email = $data['email'];   //邮箱
+            session(['yanzhengemail'=>$email]);
             //发送邮件
             $res = Mail::send('/home/login/yanzhengemail', ['username' => $username,'email'=>$email], function ($m) use ($username,$email) {
                 $m->to($email, $username)->subject('重置密码');
             });
             //判断是否发送成功
             if($res) {
-                session(['yanzhengemail'=>$email]); //用户判断
                 echo 1;
             } else {
                 echo 2;

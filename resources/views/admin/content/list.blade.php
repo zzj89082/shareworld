@@ -79,6 +79,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data1->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -119,6 +122,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data2->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -159,6 +165,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data3->render() !!}
+				              </div>
 			              </div>
 			          </section>
 			      </div>
@@ -199,6 +208,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data4->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -239,6 +251,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data5->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -279,6 +294,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data6->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -362,6 +380,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data8->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>
@@ -402,6 +423,9 @@
 								@endforeach
 			                  </tbody>
 			                </table>
+			                <div class="text-center">
+				                  {!! $data9->render() !!}
+				              </div>
 			              </div>
 			          </section>
                       </div>

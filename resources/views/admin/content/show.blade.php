@@ -28,6 +28,12 @@
                                   </div>
                               </div>
                               <div class="form-group ">
+                                  <label for="Cpicture" class="control-label col-lg-2">发布作者</label>
+                                  <div class="col-lg-10">
+                                      <input class="form-control " id="Cpicture" readonly value="{{ $data->content_user->Ualais }}" type="text"  />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
                                   <label for="Cpicture" class="control-label col-lg-2">文章标题</label>
                                   <div class="col-lg-10">
                                       <input class="form-control " id="Cpicture" readonly value="{{ $data->Ctitle }}" type="text"  />

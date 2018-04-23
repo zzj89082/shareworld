@@ -11,20 +11,13 @@
 |
 */
 //---------------------------------------------------------------
-// Route::controller('/home','Home\HomeController');
 
+Route::get('/','Home\HomeController@index');
+	Route::controller('/home','Home\HomeController');
 //---------------------------------------------------------------
-/*
-	前台路由组，对前台路由进行统一管理
-*/
-Route::group(['middleware'=>'home_login'],function(){
-	
-});
-//前台Login登录
-Route::controller('/home/login','Home\LoginController');
-//前台首页
-Route::get('/', function () { return view('/home/index');});
 
+//前台Login登录
+Route::controller('/home/login','Home\LoginController');	
 //忘记密码
 Route::controller('/home/forgetlogin','Home\forgetLoginController');
 //首页展示数据
@@ -40,6 +33,13 @@ Route::post('/home/register/sendcode','Home\RegisterController@sendcode');
 Route::controller('/home/ajax_register','Home\ajax_registerController');
 //后台register处理
 Route::resource('/home/register','Home\RegisterController');
+/*
+	前台路由组，对前台路由进行统一管理
+*/
+
+Route::group(['middleware'=>'home_login'],function(){
+	
+});
 //---------------------------------------------------------------
 /*
 	后台路由组，对后台路由进行统一管理

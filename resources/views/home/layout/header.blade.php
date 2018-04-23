@@ -31,15 +31,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="h-top" id="home">
 		   <div class="top-header">
 				  <ul class="cl-effect-16 top-nag">
-						<li><a href="registration.html" data-hover="联系我们">联系我们</a></li> 
-						<li><a href="about.html" data-hover="关于我们">关于我们</a></li>
-						<li><a href="services.html" data-hover="在线咨询">在线咨询</a></li>
-						<li><a href="login.html" data-hover="登录">登录</a></li>
+						<li><a href="#" data-hover="联系我们">联系我们</a></li> 
+						<li><a href="#" data-hover="关于我们">关于我们</a></li>
+						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
+						<li><a href="#" data-hover="登录">登录</a></li>
 					</ul>
 					<div class="search-box">
 					    <div class="b-search">
-								<form>
-										<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+								<form action="/home/search" method="get">
+										<input type="text" value="{{$keywords['keywords'] or 'Search'}}" name="keywords" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 										<input type="submit" value="">
 								</form>
 							</div>
@@ -56,15 +56,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="top-menu">
 
 					<ul class="cl-effect-16">
-						<li><a href="index.html" data-hover="热门">热门</a></li> 
-						<li><a href="about.html" data-hover="头条">头条</a></li>
-						<li><a href="grid.html" data-hover="视频">视频</a></li>
+						<li><a href="/" data-hover="热门">热门</a></li> 
+						<li><a href="#" data-hover="头条">头条</a></li>
+						<li><a href="#" data-hover="视频">视频</a></li>
 						<li><a data-hover="新鲜事" href="{{url('/home/novelty')}}">新鲜事</a></li>
 						<li><a href="{{url('/home/cold')}}" data-hover="搞笑">搞笑</a></li>
 						<li><a href="{{url('/home/fashion')}}" data-hover="时尚">时尚</a></li>
-						<li><a href="contact.html" data-hover="军事">军事</a></li>
-						<li><a href="contact.html" data-hover="美女">美女</a></li>
-						<li><a href="contact.html" data-hover="体育">体育</a></li>
+						<li><a href="#" data-hover="军事">军事</a></li>
+						<li><a href="#" data-hover="美女">美女</a></li>
+						<li><a href="/home/sport" data-hover="体育">体育</a></li>
 					</ul>
 					<!-- script-for-nav -->
 					<script>
@@ -91,7 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         @show
 		<!-- 内容区域结束 -->
 
-	     <!--/footer-->
+	    <!--/footer-->
 		<div class="footer">
 				 <div class="footer-top">
 				    <div class="col-md-4 footer-grid">
@@ -145,16 +145,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									});
 								</script>
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-	<script type="text/javascript">
-		$(function(){
-			$(document).scroll(function(){
-				//页面
-				var height = $('.main').height();
-				height = height - 45;
-				$('.full>.top-nav').css('padding-bottom',height+'px');
+		<script type="text/javascript">
+			$(function(){
+				$(document).scroll(function(){
+					//页面
+					var height = $('.main').height();
+					height = height - 45;
+					$('.full>.top-nav').css('padding-bottom',height+'px');
+				});
 			});
-		});
-	</script>
+		</script>
 
 </body>
 </html>

@@ -39,7 +39,8 @@ class HomeController extends Controller
     public function getNovelty()
     {
         //新鲜事数据
-        $data_novelty = Content::where('Ccategory','=','新鲜事')->orderby('Cid','desc')->paginate(10);
+        $data_novelty = Content::where('Ccategory','=','新鲜事') -> orderby('Cid','desc') -> paginate(10);
+        // dd($data_novelty);
         foreach ($data_novelty as $key => $value) {
             $data_novelty[$key]['Ualais'] = $value ->novelty_user->Ualais; //属于关系 用户名
             $data_novelty[$key]['Uimage'] = $value ->novelty_user->Uimage; //属于关系 用户头像
@@ -91,6 +92,7 @@ class HomeController extends Controller
     {
         //搞笑数据
         $data_cold = Content::where('Ccategory','=','搞笑')->orderby('Cid','desc')->paginate(6);
+        // dd($data_cold);
         foreach ($data_cold as $key => $value) {
             $data_cold[$key]['Ualais'] = $value ->novelty_user->Ualais; //属于关系 用户名
             $data_cold[$key]['Uimage'] = $value ->novelty_user->Uimage; //属于关系 用户头像

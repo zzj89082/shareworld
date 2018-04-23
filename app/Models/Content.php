@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Content extends Model
 {
@@ -12,9 +13,9 @@ class Content extends Model
     public $primaryKey = 'Cid';
 
 
-    public function content_type()
+    public function content_user()
     {
-        return $this->belongsTo('App\Models\Type','Tid');
+        return $this->belongsTo('App\User','Uid');
     }
 
 }

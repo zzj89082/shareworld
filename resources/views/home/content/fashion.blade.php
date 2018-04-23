@@ -7,11 +7,11 @@
 		 <div class="top-inner second" style="margin-top: -29px"> 
 		 	@foreach($data_fashion as $k=>$v)
 			<div class="col-md-6 top-text two" style="margin-bottom: 15px">
-				 <a href="single.html"><img style="width: 350px;height: 260px;" src="{{ $v->Cpicture }}" class="img-responsive" alt=""></a>
+				 <a href="/home/show/{{ $v->Cid }}"><img style="width: 350px;height: 260px;" src="{{ $v->Cpicture }}" class="img-responsive" alt=""></a>
 				 	@if(strlen($v->Ctitle) <= 48)
-				 	<h5 class="top"><a href="single.html">{{$v->Ctitle}}</a></h5>
+				 	<h5 class="top"><a href="/home/show/{{ $v->Cid }}">{{$v->Ctitle}}</a></h5>
 				 	@else
-				    <h5 class="top"><a href="single.html">{{ mb_substr($v->Ctitle,0,17).'.......' }}</a></h5>
+				    <h5 class="top"><a href="/home/show/{{ $v->Cid }}">{{ mb_substr($v->Ctitle,0,17).'.......' }}</a></h5>
 				    @endif
 					<p>{{ mb_substr($v->Ccontent,0,30 ).'..................' }}</p>
 				    <div>
@@ -47,9 +47,9 @@
 			<!--最多评论的内容-->
 			<div class="general-text">
 				<!--图片-->
-				 <a href="single.html"><img src="{{ $data_max->Cpicture }}" class="img-responsive" alt=""></a>
+				 <a href="/home/show/{{ $data_max->Cid }}"><img src="{{ $data_max->Cpicture }}" class="img-responsive" alt=""></a>
 				 	<!--标题-->
-				    <h5 class="top"><a href="single.html">{{ $data_max->Ctitle }}</a></h5>
+				    <h5 class="top"><a href="/home/show/{{ $data_max->Cid }}">{{ $data_max->Ctitle }}</a></h5>
 					<p>{{ mb_substr($data_max->Ccontent,0,60).'......' }}</p>
 				    <div style="padding-top: 12px;">
 					<!--用户头像-->

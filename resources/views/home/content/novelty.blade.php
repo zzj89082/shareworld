@@ -12,12 +12,12 @@
 				@foreach($data_novelty as $k => $v)
 					<!--图片-->
 					<div class="col-md-3 top-text" style="margin-bottom: 20.6px;">
-						 <a href="single.html"><img src="{{ $v->Cpicture }}" class="img-responsive" alt="" style="height:100px;width: 160px;"></a>
+						 <a href="/home/show/{{ $v->Cid }}"><img src="{{ $v->Cpicture }}" class="img-responsive" alt="" style="height:100px;width: 160px;"></a>
 					</div>
 					 <div class="col-md-9 top-text" >
 					 	<!--标题-->
 					    <h4 class="top" style="padding-top: 17px;">
-					    	<a style="font-weight: 900" href="single.html">{{mb_substr($v->Ctitle,0,22).'....'}}</a>
+					    	<a style="font-weight: 900" href="/home/show/{{ $v->Cid }}">{{mb_substr($v->Ctitle,0,22).'....'}}</a>
 					    </h4>
 						<!--哪个用户发布的-->
 						<div style="padding-top: 12px;">
@@ -37,10 +37,10 @@
 					</div>
 
 				<div class="clearfix"></div>
-				 @endforeach
-				 <div style="text-align: center;">
-				 {!! $data_novelty->render() !!}
-				 </div>
+				@endforeach
+				<div style="text-align: center;">
+				{!! $data_novelty->render() !!}
+				</div>
 		 	</div>
 			<!-- 中间end -->
 	    </div>
@@ -55,9 +55,9 @@
 			<!--最多评论的内容-->
 			<div class="general-text">
 				<!--图片-->
-				 <a href="single.html"><img src="{{ $data_max->Cpicture }}" class="img-responsive" alt=""></a>
+				 <a href="/home/show/{{ $data_max->Cid }}"><img src="{{ $data_max->Cpicture }}" class="img-responsive" alt=""></a>
 				 	<!--标题-->
-				    <h5 class="top"><a href="single.html">{{ $data_max->Ctitle }}</a></h5>
+				    <h5 class="top"><a href="/home/show/{{ $data_max->Cid }}">{{ $data_max->Ctitle }}</a></h5>
 					<p>{{ mb_substr($data_max->Ccontent,0,60).'......' }}</p>
 				    <div style="padding-top: 12px;">
 					<!--用户头像-->

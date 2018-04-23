@@ -15,6 +15,7 @@ use App\Models\Type;//类别模型
 use App\Models\Poster;//广告模型
 Use App\Models\Comment;//评论模型
 use App\Models\Release;//发布模型
+use Illuminate\Support\Facades\Cache;//缓存
 class HomeController extends Controller
 {
 
@@ -450,5 +451,65 @@ class HomeController extends Controller
         }else {
              return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.$Cid.'"</script>';
         }
+    }
+    /**
+     * 头条展示页面
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTop()
+    {
+       
+        //数据库操作的方式
+        $data = Content::where('Ccategory','头条')->get();
+        return view('home.content.top',['title'=>'今日头条','data' => $data]);
+    }
+
+    /**
+     * 视频展示页面
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getVideo()
+    {
+        $data = Release::where('Evideo','!=','null')->get();
+        $content = Content::orderby('Cid','desc')->first();
+        //获取除第一条内容之外的所有内容只取4条
+        $content1 = Content::where('Cid','!=',$content->Cid)->take(4)->orderby('Cid','desc')->get();
+        //获取分类为热门的数据
+        $remen = Content::where('Ccategory','=','热门')->orderby('Cid','desc')->get();
+        $data = Release::where('Evideo','!=','null')->take(2)->get();
+        // dd($data);
+        return view('home.content.video',[
+            'lunbo'=>'热点推荐',
+            'redian'=>'每日热点',
+            'content'=>$content,
+            'content1'=>$content1,
+            'remen'=>$remen,
+            'data'=>$data,
+        ]);
+
+        return view('home.content.video',['data' => $data]);
+    }
+
+    /**
+     * 加入memcache缓存机制
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getContent(Request $request)
+    {
+      if(Cache::has('data')){
+            //echo 'memcache';
+            $data = Cache::get('data'); //获取
+        }else{
+            //echo 'mysql';
+            $id = $request->input('Cid');
+            $data = Content::find($id);
+            Cache::put('data',$data,1440);
+        }
+        return view('home.content.content',['data'=>$data]);
+
     }
 }

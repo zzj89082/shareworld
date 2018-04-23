@@ -128,6 +128,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        /*if(session('Uinfo')['Upower'] !==5){
+            return redirect('/admin/user')->with('error','您没有权限执行此操作');
+        };*/
         $data = User::where('Uid',$id)->first();
         //dd($data);
         return view('Admin.User.edit',['title'=>'用户修改','data'=>$data]);
@@ -142,6 +145,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+//        if(session(Uinfo)['Upower'])
         //处理字段信息
         $data = $request->except('_token','_method');
         //如果用户从新添加的图片
@@ -210,7 +215,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
+       /* if(session('Uinfo')['Upower'] !==5){
+            return redirect('/admin/user')->with('error','您没有权限执行此操作');
+        };*/
         $data =User::where('uid',$id)->first();
         $res = $data->delete();
         if($res>0){

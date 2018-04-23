@@ -43,9 +43,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="#" data-hover="关于我们">关于我们</a></li>
 						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
 						@if(session('home_login'))
-						<li><a href="/personal" data-hover="个人中心">个人中心</a></li>
+						<li><a href="/home/login" data-hover="个人中心">个人中心</a></li>
 						@else
-						<li><a href="/home/login" data-hover="登录">登录</a></li>
+						<li><a href="#" data-hover="登录">登录</a></li>
 						@endif
 					</ul>
 					<div class="search-box">
@@ -68,15 +68,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="top-menu">
 
 					<ul class="cl-effect-16">
-						<li><a href="/" data-hover="热门">热门</a></li> 
-						<li><a href="/home/top" data-hover="头条">头条</a></li>
-						<li><a href="/home/video" data-hover="视频">视频</a></li>
-						<li><a data-hover="新鲜事" href="{{url('/home/novelty')}}">新鲜事</a></li>
-						<li><a href="{{url('/home/cold')}}" data-hover="搞笑">搞笑</a></li>
-						<li><a href="{{url('/home/fashion')}}" data-hover="时尚">时尚</a></li>
-						<li><a href="/home/military" data-hover="军事">军事</a></li>
-						<li><a href="/home/gril" data-hover="美女">美女</a></li>
-						<li><a href="/home/sport" data-hover="体育">体育</a></li>
+						<li><a href="/" data-hover="发布微博">发布微博</a></li> 
+						<li><a href="/home/top" data-hover="相册">相册</a></li>
+						<li><a href="/home/video" data-hover="评论">评论</a></li>
+						<li><a data-hover="我的收藏" href="{{url('/home/novelty')}}">我的收藏</a></li>
 					</ul>
 					<!-- script-for-nav -->
 					<script>

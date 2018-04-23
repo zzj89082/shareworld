@@ -12,11 +12,11 @@
 */
 //---------------------------------------------------------------
 
-//前台Login登录
+//前台Login登录(张智建)
 Route::controller('/home/login','Home\LoginController');	
-//忘记密码
+//忘记密码(马可)
 Route::controller('/home/forgetlogin','Home\forgetLoginController');
-//后台register注册
+//后台register注册(张智建)
 //---邮箱
 	//邮箱激活
 Route::get('/home/register/status','Home\RegisterController@status');
@@ -28,20 +28,22 @@ Route::controller('/home/ajax_register','Home\ajax_registerController');
 //后台register处理
 Route::resource('/home/register','Home\RegisterController');
 
-//首页展示数据
+//首页展示数据（付方政）
 Route::get('/','Home\HomeController@index');
 	Route::controller('/home','Home\HomeController');
 /*
 	前台路由组，对前台路由进行统一管理
 */
 Route::group(['middleware'=>'home_login'],function(){
-	/*------------张智建-----------*/
-
-	/*------------付方政-----------*/
-
-	/*------------马可-----------*/
-
-	/*------------齐红运-----------*/
+	/*------------个人中心-----------*/
+	Route::controller('/personal','Home\PersonalController');
+	/*------------私信-----------*/
+	/*------------评论-----------*/
+	/*------------相册-----------*/
+	/*------------发布微博管理-----------*/
+	/*------------关注人-----------*/
+	/*------------粉丝-----------*/
+	/*------------收藏-----------*/
 
 });
 //---------------------------------------------------------------
@@ -49,7 +51,7 @@ Route::group(['middleware'=>'home_login'],function(){
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>['login','header']],function(){
+Route::group(['middleware'=>'login'],function(){
 
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');
@@ -110,8 +112,10 @@ Route::group(['middleware'=>['login','header']],function(){
 	Route::resource('/admin/user','Admin\User\UserController');
 
 });
-//访问后台login控制器
+/**********齐红运**********/
+//访问login控制器
 Route::controller('/admin','Admin\login\LoginController');
 //---------------------------------------------------------------
+
 
 

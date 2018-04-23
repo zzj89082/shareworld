@@ -72,7 +72,12 @@ class ContentController extends Controller
     {
         $data = $request->except('_token');
         $file = $request->file('Cpicture');
+<<<<<<< HEAD
         $data['Uid'] = session('Uinfo')['Uid'];
+=======
+        $data['Uid'] =session('Uinfo')['Uid'];
+        //dd($data);
+>>>>>>> origin/qhy
         if(empty($data['Ctitle']) || empty($data['Ccontent']) || empty($data['Ccategory']) || empty($file)){
             return back()->with('error','内容不能为空');
         }

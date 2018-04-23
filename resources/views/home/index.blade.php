@@ -93,7 +93,7 @@
 						 <h3 class="tittle media">{{ $video }} <i class="glyphicon glyphicon-facetime-video"></i></h3>
 						 @foreach ($data as $v)
 						  <div class="general-text two">
-							 <video width="470" height="400" controls="controls">
+							 <video width="320" height="350" controls="controls">
 							  <source src="{{ $v->Evideo }}" type="video/mp4" />
 							  <source src="{{ $v->Evideo }}" type="video/ogg" />
 							  <source src="{{ $v->Evideo }}" type="video/webm" />

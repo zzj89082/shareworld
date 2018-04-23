@@ -10,5 +10,10 @@ class Release extends Model
     public $table = 'sw_release';
     //更改id
     public $primaryKey = 'Eid';
+    public function release_user()
+    {
+        return $this->belongsTo('App\Models\Admin\User','Ualais');
+    }
 
 }
+

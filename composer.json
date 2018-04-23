@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-         "gregwar/captcha": "1.*"
+         "gregwar/captcha": "1.*",
+         "phpfastcache/phpfastcache": "7.0.0-rc",
+        "predis/predis": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

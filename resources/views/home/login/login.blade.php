@@ -97,13 +97,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<form action="/home/login/sublogin" method="post">
 					{{csrf_field()}}
 					<input placeholder="E-mail" name="Uemail" type="email" required="" id="Uemail" value="">
-					<input  placeholder="Password" name="password" type="password" required="" id="password">
+					<input placeholder="Password" name="password" type="password" required="" id="password">
 					<p>
 					<input placeholder="验证码" name="code" type="text" required="" id="code" style="width:100px;float:left;margin-top:20px;">
 					<img src="/home/login/code" alt="" style="float:left;margin:20px 0px 0px 10px;" title="点击切换" onclick="rand_code(this)">
-					<span style="color:#fff;float:left;margin:20px 0px 0px 20px;line-height:52px;" id="codeError">
-						   
-					</span>
 					<script type="text/javascript">
 						function rand_code(obj){
 							//当前路径拼接随机参数，路径更换则会自动刷新
@@ -132,12 +129,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<input  placeholder="Password" name="telpassword" type="password" required="" id="telpassword">
 					<p>
 					<input placeholder="验证码" name="code2" type="text" required="" id="code2" style="width:100px;float:left;margin-top:20px;">
-					<img src="/home/login/code" alt="" style="float:left;margin:20px 0px 0px 10px;" title="点击切换" onclick="rand_code(this)">
-					<span style="color:#fff;float:left;margin:20px 0px 0px 20px;line-height:52px;" id="code2Error">
-						   
-					</span>
+					<img src="/home/login/code" alt="" style="float:left;margin:20px 0px 0px 10px;" title="点击切换" onclick="rand_code2(this)">
+
 					<script type="text/javascript">
-						function rand_code(obj){
+						function rand_code2(obj){
 							//当前路径拼接随机参数，路径更换则会自动刷新
 							obj.src=obj.src + '?a='+ Math.random();
 						}
@@ -237,7 +232,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
            var code = $('#code').val();
            $.post('/home/login/ajaxcode',{'Code':code},function(msg){
                 if(msg != 1){
-                    $('#codeError').text('验证码输入错误');
+                    layer.msg('验证码输入错误', {
+							        time: 3000 //3s后自动关闭
+							      	});
                 }
            },'HTML');
        });
@@ -249,7 +246,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
            var code = $('#code2').val();
            $.post('/home/login/ajaxcode2',{'Code':code},function(msg){
                 if(msg != 1){
-                    $('#code2Error').text('验证码输入错误');
+                    layer.msg('验证码输入错误', {
+							        time: 3000 //3s后自动关闭
+							      	});
                 }
            },'HTML');
        });

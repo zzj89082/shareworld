@@ -380,10 +380,10 @@ class HomeController extends Controller
                 $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
                 $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
                 $comment_data[$i]['Ualais'] = $comment -> comment_users -> Ualais;//评论者昵称
-                $reply_data = null;
+                // dd(DB::select('select * from sw_discuss where Bualais=? and Cid=?',[$comment_data[$i]['Ualais'],$Cid]));
                 //回复的用户
-                if(DB::select('select * from sw_discuss where Bualais=?',[$comment_data[$i]['Ualais']]) != null){
-                    $reply_Ualais = Comment::where('Bualais','=',$comment -> comment_users -> Ualais) -> orderby('Did','desc') -> take(5) -> lists('Did');
+                if(DB::select('select * from sw_discuss where Bualais=? and Cid=?',[$comment_data[$i]['Ualais'],$Cid]) != null){
+                    $reply_Ualais = Comment::where('Bualais','=',$comment_data[$i]['Ualais']) -> where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
                     $j = 1;
                     foreach($reply_Ualais as $key => $value)
                     {
@@ -396,6 +396,7 @@ class HomeController extends Controller
                         $reply_data[$j]['Uimage'] = $reply -> comment_users -> Uimage;//评论者的头像
                         $j++;
                     } 
+
                     $comment_data[$i]['replay'] = true;
                 } else {
                     $comment_data[$i]['replay'] = false;
@@ -403,14 +404,22 @@ class HomeController extends Controller
 
                 $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;//评论者的头像
                 $i++;
-
             }
-        return view('/home/content/show',[
-            'content_show'=>$content_show,
-            'poster_data' => $poster_data,
-            'comment_data' => $comment_data,
-            'reply_data' => $reply_data
-            ]);
+            if(empty($reply_data)){
+                 return view('/home/content/show',[
+                'content_show'=>$content_show,
+                'poster_data' => $poster_data,
+                'comment_data' => $comment_data,
+                'reply_data' => null
+                ]);
+            }
+         return view('/home/content/show',[
+        'content_show'=>$content_show,
+        'poster_data' => $poster_data,
+        'comment_data' => $comment_data,
+        'reply_data' => $reply_data
+        ]);
+       
         }else {
             return view('/home/content/show',[
             'content_show'=>$content_show,
@@ -435,9 +444,9 @@ class HomeController extends Controller
         if($request->cookie('home_login')){
             $Ualais = $request->cookie('home_login');//获取cookie中用户的信息
         }
-        $user = User::where('Ualais',$Ualais)->first();//查询用户的信息
+        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
         $Uid = $user['Uid'];//取出用户的ID
-
+        // dd($Uid);
         $data = $request -> only('Dcontent');//获取评论的内容
 
         // 验证请求...
@@ -447,9 +456,9 @@ class HomeController extends Controller
         $flight->Dcontent = $data['Dcontent'];
         $res = $flight->save();
         if($res){
-             return '<script type="text/javascript">alert("回复成功");location.href="/home/show/'.$Cid.'"</script>';
+             return '<script type="text/javascript">alert("回复成功");location.href="/home/show/'.(int)$Cid.'"</script>';
         }else {
-             return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.$Cid.'"</script>';
+             return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.(int)$Cid.'"</script>';
         }
     }
     /**

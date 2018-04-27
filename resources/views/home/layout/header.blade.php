@@ -43,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="#" data-hover="关于我们">关于我们</a></li>
 						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
 						@if(session('home_login'))
-						<li><a href="/personal" data-hover="个人中心">个人中心</a></li>
+						<li><a href="/release" data-hover="发布微博">发布微博</a></li>
 						@else
 						<li><a href="/home/login" data-hover="登录">登录</a></li>
 						@endif

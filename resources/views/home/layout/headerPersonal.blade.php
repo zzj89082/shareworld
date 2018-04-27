@@ -32,7 +32,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				})
 			});
 </script>
-
+<!-- 表情 -->
+<link rel="stylesheet" type="text/css" href="/home/css/jquery.sinaEmotion.css">
+<script src="/home/js/jquery.sinaEmotion.js"></script>
+<!-- 表情end -->
+<!-- layui -->
+	<link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
+	<script type="text/javascript" src="/layui/layui.all.js"></script>
+	<script>
+	//由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
+	;!function(){
+	  var layer = layui.layer
+	  ,form = layui.form;
+	}();
+	</script> 
+<!-- layui-end -->
 </head>
 <body>
 	<!-- header-section-starts -->
@@ -43,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="#" data-hover="关于我们">关于我们</a></li>
 						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
 						@if(session('home_login'))
-						<li><a href="/home/login" data-hover="个人中心">个人中心</a></li>
+						<li><a href="#" data-hover="个人中心">个人中心</a></li>
 						@else
 						<li><a href="#" data-hover="登录">登录</a></li>
 						@endif
@@ -68,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="top-menu">
 
 					<ul class="cl-effect-16">
-						<li><a href="/" data-hover="发布微博">发布微博</a></li> 
+						<li><a href="/release" data-hover="发布微博">发布微博</a></li> 
 						<li><a href="/home/top" data-hover="相册">相册</a></li>
 						<li><a href="/home/video" data-hover="评论">评论</a></li>
 						<li><a data-hover="我的收藏" href="{{url('/home/novelty')}}">我的收藏</a></li>

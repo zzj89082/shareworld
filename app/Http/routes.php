@@ -37,6 +37,8 @@ Route::get('/','Home\HomeController@index');
 Route::group(['middleware'=>'home_login'],function(){
 	/*------------个人中心-----------*/
 	Route::controller('/personal','Home\PersonalController');
+	//Route::post('/upload','Home\PersonalController@upload');
+	//Route::resource('/personal','Home\PersonalController');
 	/*------------私信-----------*/
 	/*------------评论-----------*/
 	/*------------相册-----------*/
@@ -51,7 +53,8 @@ Route::group(['middleware'=>'home_login'],function(){
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>'login'],function(){
+
+Route::group(['middleware'=>['login','header']],function(){
 
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');

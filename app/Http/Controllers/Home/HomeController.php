@@ -447,9 +447,9 @@ class HomeController extends Controller
         $flight->Dcontent = $data['Dcontent'];
         $res = $flight->save();
         if($res){
-             return '<script type="text/javascript">alert("回复成功");location.href="/home/show/'.$Cid.'"</script>';
+             return '<script type="text/javascript">alert("回复成功");location.href="/home/show/'.(int)$Cid.'"</script>';
         }else {
-             return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.$Cid.'"</script>';
+             return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.(int)$Cid.'"</script>';
         }
     }
     /**

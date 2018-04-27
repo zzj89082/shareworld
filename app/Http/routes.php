@@ -38,12 +38,17 @@ Route::group(['middleware'=>'home_login'],function(){
 	/*------------个人中心-----------*/
 	/*------------私信-----------*/
 	/*------------评论-----------*/
-	/*------------相册-----------*/
+	
+
 	// /*------------发布微博管理(张智建)-----------*/
 	Route::controller('/release','Home\ReleaseController');
 	/*------------关注人、粉丝(张智建)-----------*/
 	Route::controller('/follow','Home\FollowController');
-	/*------------收藏-----------*/
+	/*------------相册(付方政)-----------*/
+	Route::resource('/photo','Home\PhotoController');
+	Route::controller('/photo','Home\PhotoController');
+	/*------------收藏(付方政)-----------*/
+	Route::controller('/collect','Home\CollectController');
 
 });
 //---------------------------------------------------------------

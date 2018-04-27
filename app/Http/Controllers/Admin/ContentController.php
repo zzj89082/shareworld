@@ -74,7 +74,6 @@ class ContentController extends Controller
         $file = $request->file('Cpicture');
 
         $data['Uid'] =session('Uinfo')['Uid'];
-        //dd($data);
 
         if(empty($data['Ctitle']) || empty($data['Ccontent']) || empty($data['Ccategory']) || empty($file)){
             return back()->with('error','内容不能为空');

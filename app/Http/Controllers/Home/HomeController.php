@@ -15,6 +15,7 @@ use App\Models\Type;//类别模型
 use App\Models\Poster;//广告模型
 Use App\Models\Comment;//评论模型
 use App\Models\Release;//发布模型
+use App\Models\Collect;//收藏模型
 use Illuminate\Support\Facades\Cache;//缓存
 class HomeController extends Controller
 {
@@ -91,7 +92,6 @@ class HomeController extends Controller
         $data = Release::where('Evideo','!=','null')->take(1)->get();
         // dd($poster);
         return view('/home/content/sport',[
-            'title'=>'体育',
             'sport'=>$sport,
             'title'=>'体育竞技 ',
             'guanggao'=>'商业广告',
@@ -363,6 +363,9 @@ class HomeController extends Controller
      */
     public function getShow($Cid)
     {
+        //获取当前用户
+        $username = session('home_login');
+        $collect = Collect::where('cid','=',$Cid)->first();
         //获取单个的内容
         $content_show = Content::find($Cid);
         //广告,最新的2个广告
@@ -384,6 +387,7 @@ class HomeController extends Controller
                 //回复的用户
                 if(DB::select('select * from sw_discuss where Bualais=? and Cid=?',[$comment_data[$i]['Ualais'],$Cid]) != null){
                     $reply_Ualais = Comment::where('Bualais','=',$comment_data[$i]['Ualais']) -> where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
+
                     $j = 1;
                     foreach($reply_Ualais as $key => $value)
                     {
@@ -410,6 +414,7 @@ class HomeController extends Controller
                 'content_show'=>$content_show,
                 'poster_data' => $poster_data,
                 'comment_data' => $comment_data,
+                'collect'=>$collect,
                 'reply_data' => null
                 ]);
             }
@@ -417,13 +422,15 @@ class HomeController extends Controller
         'content_show'=>$content_show,
         'poster_data' => $poster_data,
         'comment_data' => $comment_data,
-        'reply_data' => $reply_data
+        'reply_data' => $reply_data,
+        'collect'=>$collect,
         ]);
        
         }else {
             return view('/home/content/show',[
             'content_show'=>$content_show,
             'poster_data' => $poster_data,
+            'collect'=>$collect,
             'comment_data' => null,
             'reply_data' => null
             ]);

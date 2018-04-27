@@ -40,10 +40,13 @@ Route::group(['middleware'=>'home_login'],function(){
 	/*------------私信-----------*/
 	/*------------评论-----------*/
 	/*------------相册-----------*/
-	/*------------发布微博管理-----------*/
-	/*------------关注人-----------*/
+	Route::resource('/photo','Home\PhotoController');
+	Route::controller('/photo','Home\PhotoController');
+	/*--------发布微博管理-------*/
+	/*-----------关注人----------*/
 	/*------------粉丝-----------*/
 	/*------------收藏-----------*/
+	Route::controller('/collect','Home\CollectController');
 
 });
 //---------------------------------------------------------------
@@ -51,8 +54,7 @@ Route::group(['middleware'=>'home_login'],function(){
 	后台路由组，对后台路由进行统一管理
  	header用来获取反馈
 */
-Route::group(['middleware'=>'login'],function(){
-
+Route::group(['middleware'=>['login','header']],function(){
 	//后台主页控制器
 	Route::get('/admin/index','Admin\AdminController@index');
 

@@ -38,8 +38,16 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    //一对多
     public function user_content()
     {
-        return $this->hasMany('App\Post','user_id');
+        return $this->hasMany('App\Models\Content','Uid');
+    }
+
+
+    //多对多
+    public function collect()
+    {
+        return $this->belongsToMany('App\Models\Content','sw_collect','Uid','Cid');
     }
 }

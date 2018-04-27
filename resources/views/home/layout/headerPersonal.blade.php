@@ -3,6 +3,7 @@
 <head>
 <link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
 <title>{{ Config::get('view.webTitle') }}</title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Blogger Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android  Compatible web template, 
@@ -11,8 +12,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/home/css/bootstrap.css" rel='stylesheet' type='text/css' />
 <link href='/home/css/style.css?family=Open+Sans:700,700italic,800,300,300italic,400italic,400,600,600italic' rel='stylesheet' type='text/css'>
 <!--Custom-Theme-files-->
-	<link href="/home/css/style.css" rel='stylesheet' type='text/css' />	
+	<link href="/home/css/style.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet"  href="/home/css/zoom.css" media="all" />	
+	<link rel="stylesheet" href="/layui/css/layui.css" media="all">
 	<script src="/home/js/jquery.min.js"> </script>
+	<script src="/layui/layui.all.js"> </script>
 <!--/script-->
 	<style type="text/css">
 		ul,li{
@@ -32,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				})
 			});
 </script>
+
 
 </head>
 <body>
@@ -69,9 +74,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					<ul class="cl-effect-16">
 						<li><a href="/" data-hover="发布微博">发布微博</a></li> 
-						<li><a href="/home/top" data-hover="相册">相册</a></li>
-						<li><a href="/home/video" data-hover="评论">评论</a></li>
-						<li><a data-hover="我的收藏" href="{{url('/home/novelty')}}">我的收藏</a></li>
+						<li><a href="/photo" data-hover="相册">相　　册</a></li>
+						<li><a href="/home/video" data-hover="评论">评　　论</a></li>
+						<li><a data-hover="我的收藏" href="/collect/list">我的收藏</a></li>
 					</ul>
 					<!-- script-for-nav -->
 					<script>
@@ -92,7 +97,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 	<div class="col-md-9 main">
 		<!--banner-section-->
+		@if(session('success'))
+			<script>
+				layer.msg("{{session('success')}}",{time: 1000});
+			</script>
+		@endif
 
+		@if(session('error'))
+			<script>
+				layer.msg("{{ session('error') }}", {icon: 5,anim: 6,time: 1000});
+			</script>
+		@endif
 		<!-- 内容区域 -->
 		@section('content')
         @show

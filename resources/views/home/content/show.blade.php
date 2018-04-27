@@ -14,6 +14,12 @@
 			<p class="phn" style="font-size:18px;">{{strstr($content_show['Ctitle'],' ')}}</p>
 			<p class="phn-bottom"><span>{{strtok($content_show['created_at'],' ')}}</span></p>
 			<p class="lom" style="width:100%;text-indent:2em;font-size:16px;">{{mb_substr($content_show['Ccontent'],0,200).'..'}}</p>
+			@if($collect == null)
+				<a class="span_link" id="collect" style="float:right;margin-right:10px;color:#777;cursor:pointer;"><span class="glyphicon glyphicon-star">收藏</span></a>
+			@else
+				<a class="span_link" id="collect" style="float:right;margin-right:10px;color:#777;cursor:pointer;"><span class="glyphicon glyphicon-star" style="color:rgb(255, 165, 0)">收藏</span></a>
+			@endif
+			<input type="hidden" id="cid" name="cid" value="{{$content_show['Cid']}}">
 		</div>
 		<div class="clearfix"> </div>
 		<!-- 信息详情end -->
@@ -112,5 +118,45 @@
 	<!-- //contact -->
 	</div>
 <!-- 内容区域结束 -->
-@endsection
+
+<script type="text/javascript">
 	
+	$('#collect').click(function(){
+		if($("#collect span").css("color") == 'rgb(204, 203, 198)'){
+			var cid = $('#cid').val();
+			$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+			});
+			$.post('/collect/add',{'cid':cid},function(msg){
+				if(msg.code == 1){
+					layer.msg(msg.data);
+				}else{
+					layer.msg(msg.err);
+				}
+			},'json');
+			$("#collect span").css("color","rgb(255, 165, 0)")
+		}else if($("#collect span").css("color") == 'rgb(255, 165, 0)'){
+			var cid = $('#cid').val();
+			$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+			});
+			$.post('/collect/delete',{'cid':cid},function(msg){
+				if(msg.code == 1){
+					layer.msg(msg.data);
+				}else{
+					layer.msg(msg.err);
+				}
+			},'json');
+			$("#collect span").css("color","rgb(204, 203, 198)");
+		}
+		
+	});
+
+	
+</script>
+
+@endsection

@@ -35,10 +35,10 @@ Route::get('/','Home\HomeController@index');
 	前台路由组，对前台路由进行统一管理
 */
 Route::group(['middleware'=>'home_login'],function(){
-	/*------------个人中心-----------*/
+	/*------------个人中心(齐红运)-----------*/
+	Route::controller('/personal','Home\PersonalController');
 	/*------------私信-----------*/
 	/*------------评论-----------*/
-	
 
 	// /*------------发布微博管理(张智建)-----------*/
 	Route::controller('/release','Home\ReleaseController');

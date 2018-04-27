@@ -131,11 +131,11 @@
 						<h3>
 							<!-- 除了自己都可以关注 -->
 							@if($user['Uid'] != $v->Uid)
-								@if(strstr($user['Uattention'],(string)$v->Uid))
-									<button class="layui-btn layui-btn-warm guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="1">@ 取消关注</button>
-								@else
-									<button class="layui-btn guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="0">@ 点击关注</button>
-								@endif
+									@if($user['Uattention']!=0 && strstr($user['Uattention'],(string)$v->Uid))
+										<button class="layui-btn layui-btn-warm guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="1">@ 取消关注</button>
+									@else
+										<button class="layui-btn guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="0">@ 点击关注</button>
+									@endif
 							@endif
 
 						</h3>

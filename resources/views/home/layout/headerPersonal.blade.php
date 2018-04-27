@@ -2,6 +2,9 @@
 <html>
 <head>
 <link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
+<link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
+<script type="text/javascript" src="/layui/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
 <title>{{ Config::get('view.webTitle') }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,9 +65,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="#" data-hover="关于我们">关于我们</a></li>
 						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
 						@if(session('home_login'))
-						<li><a href="#" data-hover="个人中心">个人中心</a></li>
+						<li><a href="/personal/index" data-hover="个人中心">个人中心</a></li>
 						@else
-						<li><a href="#" data-hover="登录">登录</a></li>
+						<li><a href="/home/login" data-hover="登录">登录</a></li>
 						@endif
 					</ul>
 					<div class="search-box">
@@ -89,8 +92,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="cl-effect-16">
 
 						<li><a href="/release" data-hover="发布微博">发布微博</a></li> 
-						<li><a href="/photo" data-hover="相册">相　　册</a></li>
-						<li><a href="/home/video" data-hover="评论">评　　论</a></li>
+						<li><a href="/photo" data-hover="相　　册">相　　册</a></li>
+						<li><a href="/home/video" data-hover="评　　论">评　　论</a></li>
 						<li><a data-hover="我的收藏" href="/collect/list">我的收藏</a></li>
 
 					</ul>
@@ -112,6 +115,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    </div>
 			</div>
 	<div class="col-md-9 main">
+		@if (count($errors) > 0)
+			<div class="mws-form-message error">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{$error}}</li>
+					@endforeach
+				</ul>
+
+			</div>
+			@endif
 		<!--banner-section-->
 		@if(session('success'))
 			<script>
@@ -193,6 +206,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				});
 			});
 		</script>
+	<script type="text/javascript">
+		//layUI
+		//一般直接写在一个js文件中
+		layui.use(['layer', 'form'], function(){
+			var layer = layui.layer
+					,form = layui.form;
+		});
+	</script>
+
+	<!-- 读取模版的提示信息 -->
+	@if(session('success'))
+		<script>
+			layer.msg("{{session('success')}}",{time: 1000});
+		</script>
+	@endif
+
+	@if(session('error'))
+
+		<script>
+			layer.msg("{{ session('error') }}", {icon: 5,anim: 6,time: 1000});
+		</script>
+	@endif
 
 </body>
 </html>

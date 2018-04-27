@@ -24,12 +24,12 @@ class ReleaseController extends Controller
         $Ualais = session('home_login');
         $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
         //计算数量
-        if($user['Uattention']==null){
+        if(empty($user['Uattention'])){
             $user['UattentionCount'] = 0;
         }else{ 
             $user['UattentionCount'] = count(explode(',',rtrim($user['Uattention'],',')));//关注人总数
         }
-        if($user['Ubean'] == null){
+        if(empty($user['Ubean'])){
             $user['UbeanCount'] = 0;
         }else{
             $user['UbeanCount'] = count(explode(',',rtrim($user['Ubean'],',')));//粉丝总数

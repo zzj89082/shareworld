@@ -118,14 +118,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 	<div class="col-md-9 main">
 		@if (count($errors) > 0)
-			<div class="alert alert-danger" id="#box1">
+			<div class="alert alert-danger" id="box2">
 				<ul>
 					@foreach ($errors->all() as $error)
 						<li>{{$error}}</li>
 					@endforeach
 				</ul>
 				<script type="text/javascript">
-				$('#box1').click(function(){
+				$('#box2').click(function(){
+					//alert('123');
 					$(this).css('display','none');
 				});
 				</script>

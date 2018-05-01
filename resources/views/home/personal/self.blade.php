@@ -168,7 +168,7 @@
                                 <img src="{{ $v->Cpicture }}" class="img-responsive" style="width:100px;height:70px;">
                             </div>
                             <div class="col-md-9 item-details">
-                                <h5 class="inner two"><a href="single.html">{{ $v->Ctitle }}</a></h5>
+                                <h5 class="inner two"><a href="/home/show/{{$v->Cid}}">{{ $v->Ctitle }}</a></h5>
                                 <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{ $v->created_at }} <a href="#"><i class="glyphicon glyphicon-comment"></i>{{ $v->Ccomment or 0 }}</a></div>
                             </div>
                             <div class="clearfix"></div>

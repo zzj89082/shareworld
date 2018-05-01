@@ -92,7 +92,7 @@
 								<h3 id="logo"><a href="#">{{$user['Ualais']}}	</a></h3>
 								<p>
 								<a href="/follow/index">@ 关 注 人 <span style="color:#EEB438">{{$user['UattentionCount']}}</span></a>
-								　|　<a href=""><i class="glyphicon glyphicon-envelope"></i> 私 信</a>
+								
 								　|　<a href="/follow/bean"><i class="glyphicon glyphicon-thumbs-up"></i> 粉 丝 <span style="color:#EEB438">{{$user['UbeanCount']}}</span></a>
 								</p>
 						 </div>

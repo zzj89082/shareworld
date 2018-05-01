@@ -18,10 +18,19 @@
 				<p style="background-color:#FAFAFA;border:1px solid #ccc;border-bottom:none;padding:0px 0px 5px 5px;text-align:left;">
 					<img src="{{$content_show->Uimage[0]}}" alt="" style="width:50px;height:50px;border-radius:50%;">
 					<span style="color:#EB7350;">{{$content_show->Ualais}}</span> : 
-					@if($content_show['Eimg'] == null &&$content_show->Evideo == null)
 					<span class="result" style="line-height:70px;">{!!$content_show->Earticle!!}</span>
+					<span style="float:right;padding-top:20px;">
+					@if(empty(session('home_login')))
+						<a class="span_link" id="collect" style="float:right;margin-right:10px;color:#777;cursor:pointer;"><span class="glyphicon glyphicon-star">收藏</span></a>
+					@else
+						@if($collect == null)
+							<a class="span_link" id="collect" style="float:right;margin-right:10px;color:#777;cursor:pointer;"><span class="glyphicon glyphicon-star">收藏</span></a>
+						@else
+							<a class="span_link" id="collect" style="float:right;margin-right:10px;color:#777;cursor:pointer;"><span class="glyphicon glyphicon-star" style="color:rgb(255, 165, 0)">收藏</span></a>
+						@endif
 					@endif
-					<span class="result">{!!mb_substr($content_show->Earticle,0,66).'..'!!}</span>
+					<input type="hidden" id="eid" name="eid" value="{{$content_show['Eid']}}">
+					</span>
 				</p>
 				<!-- 表情解析 -->
 				<script type="text/javascript">
@@ -35,7 +44,7 @@
 					@endforeach
 					@endif
 					@if($content_show->Evideo != null)
-					<video width="280" height="420" controls="controls" style="background-color:rgba(0,0,0,0.8)">
+					<video width="280" height="420" controls="controls" style="background-color:rgba(0,0,0,0.8);">
 						  <source src="{{ $content_show->Evideo }}" type="video/mp4" />
 						  <source src="{{ $content_show->Evideo }}" type="video/ogg" />
 						  <source src="{{ $content_show->Evideo }}" type="video/webm" />
@@ -43,6 +52,11 @@
 						    	<embed src="{{ $content_show->Evideo }}" width="100%" height="100%" />
 						  </object>
 					</video>
+					@endif
+					@if(empty(session('home_login')))
+						<input type="hidden" id="session" name="session" value="0">
+					@else
+						<input type="hidden" id="session" name="session" value="{{session('home_login')}}">
 					@endif
 					
 				</p>
@@ -55,13 +69,14 @@
 		<div class="banner-section" style="padding-top:0px;">
 		   <!-- 文本框 -->
 		     <div class="coment-form">
-				<h4>发表评论</h4>
-				<form action="/release/comment/{{$content_show['Eid']}}" method="post">
-					{{csrf_field()}}
-					<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Comment...';}" required="" name="Dcontent">Your Comment...</textarea>
-					<input type="submit" value="发表" >
+				<h4>评论</h4>
+				<form>
+					<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入你要评论的内容';}" name="text"></textarea>
+					<input type="hidden" name="releaseeid" value="{{ $data_find->Eid }}">
+					{{ csrf_field() }}
 				</form>
-			 </div>	
+				<input type="submit" data="textcomment" value="发送评论"><!--点击事件-->
+			</div>	
 			 <div class="clearfix"></div>
 		   <!-- 文本框结束 -->
 			  <div class="single-bottom">
@@ -74,50 +89,148 @@
 				   </div>
 
 			  </div>
-			  <div class="response">
-				@if($comment_data!=null)
-				@foreach($comment_data as $k => $v)	
-				<div class="media response-info">
-					<div class="media-left response-text-left">
-						<a href="/member/{{$v['Uid']}}" target="_blank">
-							<img class="media-object" src="{{ $v['Uimage'] }}" alt="" style="width:120px;height:120px;"/>
-						</a>
-						<h5 style="text-align:center;"><a href="#">{{$v['Ualais'] }}</a></h5>
-					</div>
-					<div class="media-body response-text-right">
-						<p>{{mb_substr($v['Dcontent'],0,120).'..'}}</p>
-						<ul>
-							<li>{{strtok($v['created_at'],' ')}}</li>
-							<li><a href="single.html" style="margin-bottom:10px;">回复@他</a></li>
-						</ul>
-						<!-- 回复 -->
-						@if ($v['replay'] == true)
-						@foreach($reply_data as $key => $value)
-						<div class="media response-info" style="margin-top:10px;">
-							<div class="media-left response-text-left">
-								<a href="/member/{{$value['Uid']}}" target="_blank">
-									<img class="media-object" src="{{ $value['Uimage'] }}" alt="" style="width:100px;height:100px;"/>
-								</a>
-								<h5 style="text-align:center;"><a href="#">{{$value['Ualais'] }}</a></h5>
-							</div>
-							<div class="media-body response-text-right" style="font-size:14px;">
-								<p style="padding:10px 0px 0px; ">{{mb_substr($value['Dcontent'],0,120).'..'}}</p>
-								<ul>
-									<li>{{strtok($value['created_at'],' ')}}</li>
-								</ul>		
-							</div>
-							<div class="clearfix" style="border-bottom:1px dashed #DDDDDD;"> </div>
+			<h3 style="margin-bottom:15px; ">评论内容</h3>
+			@if(!empty($data_get[0]))
+			<!--循环遍历内容评论-->
+			@foreach ($data_get as $k=>$v)
+			<div class="response" style="margin-bottom: 20px;">
+						<!-- 头像部分 -->
+						<div class="media-left response-text-left">
+							<a href="#">
+								<img style="width:80px;height: 80px;" class="media-object" src="{{ $v->Uimage }}" alt=""/>
+							</a>
+							
 						</div>
-						@endforeach
-						@endif
-						<!-- 回复end -->
-					</div>
-					<div class="clearfix" style="border-bottom:1px dashed #DDDDDD;"> </div>
+						<!-- 头像部分结束 -->
+
+						<div class="media-body response-text-right">
+							<p>{{ $v->Dcontent }}</p>
+							<ul>
+								用户名：<li style="margin-left: -25px;margin-right: 10px;"><a href="#">{{ $v->Homebualais }}</a></li>
+								<li>{{ $v->created_at }}</li>
+								<li><a href="javascript:;" data="{{ $v->Discuss_type }}" wocao1="{{ $v->Did }}" class="huifu">回复</a></li>
+							</ul>
+							<div class="tijiao" style="margin-top: 5px;display: none;">
+								<input style="width: 270px;height: 27px;" wocao="{{ $user->Ualais }}" type="text" name="huifu">
+								<input type="submit" value="评论"  style="border:none; width: 40px;height: 27px;background: orange;">
+							</div>
+						</div>
+			
+
+
+
+						<!--第一个内容部分结束-->
+						<div class="clearfix"> </div>
+						@if(isset($v->yi))
+						<!--循环遍历评论者评论评论者-->
+				@foreach ($v->yi as $key => $value)
+					
+					<div class="response" style="margin-left: 50px;margin-bottom: 20px;">
+						<!-- 头像部分 -->
+						<div class="media-left response-text-left">
+							<a href="#">
+								<img style="width:80px;height: 80px;" class="media-object" src="{{ $value->Uimage }}" alt=""/>
+							</a>
+							
+						</div>
+						<!-- 头像部分结束 -->
+
+						<div class="media-body response-text-right">
+							<p>{{ $value->Homebualais }}{{ $value->Dcontent }}</p>
+							<ul>
+								用户名：<li style="margin-left: -25px;margin-right: 10px;"><a href="#">{{ $value->Homebualais }}</a></li>
+								<li>{{ $value->created_at }}</li>
+								<li><a href="javascript:;" data="{{ $value->Discuss_type }}" wocao1="{{ $value->Did }}" class="huifu">回复</a></li>
+							</ul>
+							<div class="tijiao" style="margin-top: 5px;display: none;">
+								<input style="width: 270px;height: 27px;" type="text" name="huifu">
+								<input type="submit" value="评论" wocao="{{ $user->Ualais }}"  style="border:none; width: 40px;height: 27px;background: orange;">
+							</div>
+						</div>
+						<!--第一个内容部分结束-->
+						<div class="clearfix"> </div>
+					<!-- </div> -->
+					<!--整体结束-->
+					@if(!empty($value->yi2))
+				@foreach ($value->yi2 as $key1 => $value1)
+					
+					<div class="response" style="margin-bottom: 20px;">
+						<!-- 头像部分 -->
+						<div class="media-left response-text-left">
+							<a href="#">
+								<img style="width:80px;height: 80px;" class="media-object" src="{{ $value1->Uimage }}" alt=""/>
+							</a>
+							
+						</div>
+						<!-- 头像部分结束 -->
+
+						<div class="media-body response-text-right">
+							<p>{{ $value1->Homebualais }}{{ $value1->Dcontent }}</p>
+							<ul>
+								用户名：<li style="margin-left: -25px;margin-right: 10px;"><a href="#">{{ $value1->Homebualais }}</a></li>
+								<li>{{ $value1->created_at }}</li>
+								<li><a href="javascript:;" data="{{ $value1->Discuss_type }}" wocao1="{{ $value->Did }}"  class="huifu">回复</a></li>
+							</ul>
+							<div class="tijiao" style="margin-top: 5px;display: none;">
+								<input style="width: 270px;height: 27px;" type="text" name="huifu">
+								<input type="submit" value="评论" wocao="{{ $user->Ualais }}" style="border:none; width: 40px;height: 27px;background: orange;">
+							</div>
+						</div>
+						<!--第一个内容部分结束-->
+						<div class="clearfix"> </div>
+					<!-- </div> -->
+					<!--整体结束-->
 				</div>
 				@endforeach
 				@endif
-			  </div>	
-		</div>
+				</div>
+				@endforeach
+				@endif
+
+				
+					<!-- </div> -->
+					<!--整体结束-->
+				</div>	
+
+					@endforeach
+				<!--循环遍历内容评论结束-->
+
+
+				
+				
+
+				@else
+				<div class="response" style="margin-bottom: 20px;display: none;">
+
+						<!-- 头像部分 -->
+						<div class="media-left response-text-left">
+							<a href="#">
+								<img style="width:80px;height: 80px;" class="media-object" src="" alt=""/>
+							</a>
+							
+						</div>
+						<!-- 头像部分结束 -->
+
+						<div class="media-body response-text-right">
+							<p></p>
+							<ul>
+								用户名：<li style="margin-left: -25px;margin-right: 10px;"><a href="#"></a></li>
+								<li></li>
+								<li><a class="huifu" href="javascript:;">回复</a></li>
+							</ul>
+							<div class="tijiao" style="margin-top: 5px;display: none;">
+								<input style="width: 270px;height: 27px;" type="text" name="huifu">
+								<input type="submit" value="评论" wocao="{{ $user->Ualais }}" style="border:none; width: 40px;height: 27px;background: orange;">
+							</div>
+						</div>
+						<!--第一个内容部分结束-->
+						<div class="clearfix"> </div>
+					<!-- </div> -->
+					<!--整体结束-->
+				</div>
+				@endif	
+				</div>
+			<script type="text/javascript" src="/home/js/comment.js"></script>		
 		<!-- 留言end -->
 		<!-- 广告 -->
 		<div class="banner-right-text" style="margin-top:-30px;">
@@ -145,6 +258,49 @@
 
 	<!-- //contact -->
 	</div>
+
+	<script type="text/javascript">
+	
+	$('#collect').click(function(){
+		if($('#session').val() != 0){
+			if($("#collect span").css("color") == 'rgb(204, 203, 198)'){
+				var eid = $('#eid').val();
+				$.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			        }
+				});
+				$.post('/collect/releaseadd',{'eid':eid},function(msg){
+					if(msg.code == 1){
+						layer.msg(msg.data);
+					}else{
+						layer.msg(msg.err);
+					}
+				},'json');
+				$("#collect span").css("color","rgb(255, 165, 0)")
+			}else if($("#collect span").css("color") == 'rgb(255, 165, 0)'){
+				var eid = $('#eid').val();
+				$.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			        }
+				});
+				$.post('/collect/releasedelete',{'eid':eid},function(msg){
+					if(msg.code == 1){
+						layer.msg(msg.data);
+					}else{
+						layer.msg(msg.err);
+					}
+				},'json');
+				$("#collect span").css("color","rgb(204, 203, 198)");
+			}
+		}else{
+			$(location).prop('href', '/home/login');
+		}
+	});
+
+	
+</script>
 <!-- 内容区域结束 -->
 @endsection
 	

@@ -141,29 +141,24 @@
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
-                            </li>
+                            
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
+                                <input type="button" onclick="clearsession()" value="退 出" class="btn" style="width:100%;">
                             </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-                            </li>
-                            <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
-                            </li>
-                            <li>
-                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-                            </li>
-                            <li>
-                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-                            </li>
+                            
                         </ul>
                     </li>
+                    <script type="text/javascript">
+                      function clearsession()
+                      {
+                        $.get('/admin/clearsession',function(msg){
+                          if(msg==1){
+                            alert('退出成功');
+                            return location.href="/admin/login";
+                          }
+                        });
+                      }
+                    </script>
                     <!-- user login dropdown end -->
                 </ul>
                 <!-- notificatoin dropdown end-->

@@ -6,21 +6,21 @@
     <h3 class="tittle">{{$title}} <i class="glyphicon glyphicon-eye-open"></i></h3>
 	 	<!--/top-news-->
 		<div class="top-news" style="margin-top:-50px;">
+			<style type="text/css">
+				.zzjhove img:hover{box-shadow: 0 0 5px 1px #6BC4C7}
+		  	</style>
 		  	<!-- 中间 -->
 			<div class="top-inner second">
 				@foreach($gril_data as $k => $v)
-					<div class="col-md-6 top-text">
-						 <a href="/home/show/{{$v->Cid}}"><img src="{{$v->Cpicture}}" class="img-responsive" alt="" style="height:260px;"></a>
-						    <h5 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h5>
+					<div class="col-md-6 top-text zzjhove" style="height:430px;">
+						 <a href="/home/show/{{$v->Cid}}"><img src="{{$v->Cpicture}}" class="img-responsive" alt="" style="height:300px;"></a>
+						    <h4 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h4>
 							<p>{{mb_substr($v->Ccontent,0,66).'..'}}</p>
 						    <p>{{strtok($v->created_at,' ')}}
-							    <a class="span_link" href="single.html" style="float:right">
-							    	<span class="glyphicon glyphicon-circle-arrow-right"></span>
+						    	<a class="span_link" href="/home/show/{{$v->Cid}}" style="float:right">
+							    	<span class="glyphicon glyphicon-eye-open"></span>{{$v->Ccount}} 
 							    </a>
-						    	<a class="span_link" href="#" style="float:right">
-							    	<span class="glyphicon glyphicon-eye-open"></span>56 
-							    </a>
-							    <a class="span_link" href="#" style="float:right">
+							    <a class="span_link" href="/home/show/{{$v->Cid}}" style="float:right">
 							    	<span class="glyphicon glyphicon-comment"></span>{{$gril_data2[$k]['count']}} 
 							    </a>
 						    </p>
@@ -47,41 +47,36 @@
 	<!--/general-news-->
 	 <div class="general-news">
 		<div class="general-inner">
+				
 				<div class="general-text">
-					 	<video width="320" height="350" controls="controls">
-							  <source src="{{ $gril_hot->Cvideo }}" type="video/mp4" />
-							  <source src="{{ $gril_hot->Cvideo }}" type="video/ogg" />
-							  <source src="{{ $gril_hot->Cvideo }}" type="video/webm" />
-							  <object data="{{ $gril_hot->Cvideo }}" width="100%" height="100%">
-							    	<embed src="{{ $gril_hot->Cvideo }}" width="100%" height="100%" />
-							  </object>
-						</video>
-					    <h5 class="top"><a href="#" title="{{$gril_hot['Earticle']}}">{{mb_substr($gril_hot['Ctitle'],0,16).'..'}}</a></h5>
-					    <a class="span_link" href="#">
-					    	<span class="glyphicon glyphicon-comment"></span>{{$gril_hot['count']}} 
+					 <a href="/home/show/{{$gril_hot->Cid}}"><img src="{{$gril_hot['Cpicture']}}" class="img-responsive" alt=""></a>
+					    <h4 class="top"><a href="/home/show/{{ $gril_hot->Cid }}">{{mb_substr($gril_hot['Ctitle'],0,16).'..'}}</a></h4>
+						<p>{{mb_substr($gril_hot->Ccontent,0,66).'..'}}</p>
+					    <p>{{strtok($gril_hot['created_at'],' ')}}
+					    <a class="span_link" href="/home/show/{{ $gril_hot->Cid }}">
+					    	<span class="glyphicon glyphicon-comment"></span>{{$gril_hot['count']}}  
 					    </a>
-					    <a class="span_link" href="#">
-					    	<span class="glyphicon glyphicon-eye-open"></span>56  
-					    </a>
-					    <a class="span_link" href="single.html">
-					    	<span class="glyphicon glyphicon-circle-arrow-right"></span>
-					    </a>
+					   
+					    	<span class="glyphicon glyphicon-eye-open"></span>{{$gril_hot->Ccount}}  
+					   
 					    </p>
 				</div>
 			 	<div class="edit-pics">
+			 	@if(isset($comment_data))
 			 		@foreach($comment_data as $k => $v)	
 		      		<div class="editor-pics">
 					 <div class="col-md-3 item-pic">
-					   <a href="/member/{{$v['Uid']}}"><img src="{{ $v['Uimage'] }}" class="img-responsive" alt="" style="width:100px;height:70px;"></a>
+					   <a href="/home/show/{{$gril_hot->Cid}}"><img src="{{ $v['Uimage'] }}" class="img-responsive" alt="" style="width:100px;height:70px;"></a>
 
 					   </div>
 						<div class="col-md-9 item-details">
-							<h5 class="inner two"><a href="single.html" title="{{$v['Dcontent']}}">{{mb_substr($v['Dcontent'],0,14).'..'}}</a></h5>
-							 <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{strtok($v['created_at'],' ')}} <a href="/comment/{{$v['Uid']}}"><i class="glyphicon glyphicon-comment"></i>0 </a></div>
+							<h5 class="inner two"><a href="/home/show/{{$gril_hot->Cid}}" title="{{$v['Dcontent']}}">{{mb_substr($v['Dcontent'],0,14).'..'}}</a></h5>
+							 <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{strtok($v['created_at'],' ')}} <a href="/home/show/{{$gril_hot->Cid}}"><i class="glyphicon glyphicon-comment"></i></a></div>
 						 </div>
 						<div class="clearfix"></div>
 					</div>
 					@endforeach
+				@endif
 				</div>
 				<div class="media">	
 					 <h3 class="tittle media">Poster <i class="glyphicon glyphicon-leaf"></i></h3>

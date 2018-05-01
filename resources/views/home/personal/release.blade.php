@@ -141,9 +141,9 @@
 						</h3>
 
 					</div>
-					<div class="media-body response-text-right" style="margin:10px 0px;border-bottom:1px dashed #AAE0E0">
+					<div class="media-body response-text-right" style="margin:10px 0px;border-bottom:1px dashed #AAE0E0;">
 						<p><span style="color:#EB7350">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Earticle,0,66).'..'!!}</span></p>
-						<p>
+						<p style="min-height:60px;">
 							@if($v->Eimg != null)
 							@foreach($v->Eimg as $key => $value)
 							<img src="{{$value}}" alt="" style="width:100px;height:50px;" class="Rimg">
@@ -166,12 +166,12 @@
 								<i class="glyphicon glyphicon-comment"></i>{{$v['count']}} 
 							</a>
 							@if(strstr($v['Elike_Uid'],(string)$user['Uid']))
-								<button class="layui-btn layui-btn-danger dianzan" style="position:absolute;right:10px;bottom:20px;background-color: #5FB878;" name="{{$v->Eid}}" alt="1" value="{{$user['Uid']}}">
+								<button class="layui-btn layui-btn-danger dianzan" style="position:absolute;right:10px;bottom:0px;background-color: #5FB878;" name="{{$v->Eid}}" alt="1" value="{{$user['Uid']}}">
 								<i class="glyphicon glyphicon-heart-empty" style="font-size:14px;"></i>
 								取 消 <span>{{$v['Elike']}}</span>　
 								</button>
 							@else
-								<button class="layui-btn layui-btn-danger dianzan" style="position:absolute;right:10px;bottom:20px;" name="{{$v->Eid}}" alt="0" value="{{$user['Uid']}}">
+								<button class="layui-btn layui-btn-danger dianzan" style="position:absolute;right:10px;bottom:0px;" name="{{$v->Eid}}" alt="0" value="{{$user['Uid']}}">
 									<i class="glyphicon glyphicon-heart-empty" style="font-size:14px;"></i>
 									点 赞 <span>{{$v['Elike']}}</span>　
 								</button>
@@ -650,7 +650,7 @@
 								<h3 id="logo"><a href="#">{{$user['Ualais']}}	</a></h3>
 								<p>
 								<a href="/follow/index">@ 关 注 人 <span style="color:#EEB438">{{$user['UattentionCount']}}</span></a>
-								　|　<a href=""><i class="glyphicon glyphicon-envelope"></i> 私 信</a>
+								　
 								　|　<a href="/follow/bean"><i class="glyphicon glyphicon-thumbs-up"></i> 粉 丝 <span style="color:#EEB438">{{$user['UbeanCount']}}</span></a>
 								</p>
 						 </div>

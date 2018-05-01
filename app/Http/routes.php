@@ -37,9 +37,8 @@ Route::get('/','Home\HomeController@index');
 Route::group(['middleware'=>'home_login'],function(){
 	/*------------个人中心(齐红运)-----------*/
 	Route::controller('/personal','Home\PersonalController');
-	/*------------私信-----------*/
-	/*------------评论-----------*/
-
+	/*------------评论(马可)-----------*/
+	Route::resource('/hcomment','Home\HcommentController');
 	// /*------------发布微博管理(张智建)-----------*/
 	Route::controller('/release','Home\ReleaseController');
 	/*------------关注人、粉丝(张智建)-----------*/

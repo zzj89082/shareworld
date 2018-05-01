@@ -50,4 +50,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->belongsToMany('App\Models\Content','sw_collect','Uid','Cid');
     }
+    //多对多
+    public function releasecollect()
+    {
+        return $this->belongsToMany('App\Models\Release','sw_collect','Uid','Eid');
+    }
 }

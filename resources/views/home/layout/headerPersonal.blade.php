@@ -61,12 +61,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="h-top" id="home">
 		   <div class="top-header">
 				  <ul class="cl-effect-16 top-nag">
-						<li><a href="#" data-hover="联系我们">联系我们</a></li> 
-						<li><a href="#" data-hover="关于我们">关于我们</a></li>
-						<li><a href="#" data-hover="在线咨询">在线咨询</a></li>
+						<li><a href="http://www.hao123.com/mail" data-hover="联系我们">联系我们</a></li> 
+						<li><a href="/home/guanyu" data-hover="关于我们">关于我们</a></li>
 						@if(session('home_login'))
+						<li><a href="/home/fankui" data-hover="信息反馈">信息反馈</a></li>
 						<li><a href="/personal/index" data-hover="个人中心">个人中心</a></li>
+						<li><a href="/home/login/out" data-hover="退 出">退 出</a></li>
 						@else
+						<li><a href="/home/login" data-hover="信息反馈">信息反馈</a></li>
 						<li><a href="/home/login" data-hover="登录">登录</a></li>
 						@endif
 					</ul>
@@ -93,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 						<li><a href="/release" data-hover="发布微博">发布微博</a></li> 
 						<li><a href="/photo" data-hover="相　　册">相　　册</a></li>
-						<li><a href="/home/video" data-hover="评　　论">评　　论</a></li>
+						<li><a href="/hcomment" data-hover="评　　论">评　　论</a></li>
 						<li><a data-hover="我的收藏" href="/collect/list">我的收藏</a></li>
 
 					</ul>
@@ -116,13 +118,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 	<div class="col-md-9 main">
 		@if (count($errors) > 0)
-			<div class="mws-form-message error">
+			<div class="alert alert-danger" id="#box1">
 				<ul>
 					@foreach ($errors->all() as $error)
 						<li>{{$error}}</li>
 					@endforeach
 				</ul>
-
+				<script type="text/javascript">
+				$('#box1').click(function(){
+					$(this).css('display','none');
+				});
+				</script>
 			</div>
 			@endif
 		<!--banner-section-->
@@ -146,31 +152,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="footer">
 				 <div class="footer-top">
 				    <div class="col-md-4 footer-grid">
-					     <h4>Lorem sadipscing </h4>
+					     <h4>制作人　团队 </h4>
 				          <ul class="bottom">
-							 <li>Consetetur sadipscing elitr</li>
-							 <li>Magna aliquyam eratsed diam</li>
+							 <li>重案六组制作</li>
+							 <li>张智建、马鸿灿、齐红运、付方政</li>
 						 </ul>
 				    </div>
 					  <div class="col-md-4 footer-grid">
-					     <h4>Message Us Now</h4>
+					     <h4>主页　邮箱</h4>
 				            <ul class="bottom">
-						     <li><i class="glyphicon glyphicon-home"></i>Available 24/7 </li>
-							 <li><i class="glyphicon glyphicon-envelope"></i><a href="mailto:info@example.com">mail@example.com</a></li>
+						     <li><i class="glyphicon glyphicon-home"></i>www.shareworld.com </li>
+							 <li><i class="glyphicon glyphicon-envelope"></i>18410043871@163.com</li>
 						   </ul>
 				    </div>
 					<div class="col-md-4 footer-grid">
-					     <h4>Address Location</h4>
+					     <h4>电话　地址</h4>
 				           <ul class="bottom">
-						     <li><i class="glyphicon glyphicon-map-marker"></i>2901 Glassgow Road, WA 98122-1090 </li>
-							 <li><i class="glyphicon glyphicon-earphone"></i>phone: (888) 123-456-7899 </li>
+						     <li><i class="glyphicon glyphicon-map-marker"></i>北京昌平区兄弟连3A06 </li>
+							 <li><i class="glyphicon glyphicon-earphone"></i>phone: (888) 184-1004-3871 </li>
 						   </ul>
 				    </div>
 					<div class="clearfix"> </div>
 				 </div>
 		 </div>
 		<div class="copy">
-		    <p>Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="#" target="_blank" title="分享我的世界">分享我的世界</a> - Collect from <a href="#" title="重案六组制作" target="_blank">重案六组制作</a></p>
+		    <p>Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="#" target="_blank" title="分享我的世界" style="color:#fff">分享我的世界</a> -重案六组制作</p>
 		</div>
 		<div class="clearfix"> </div>	
 

@@ -27,7 +27,7 @@ class PersonalController extends Controller
         //dd($content);
         return view('home.personal.self',['data'=>$data,'content'=>$content,'content1'=>$content1]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

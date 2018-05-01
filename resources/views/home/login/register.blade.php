@@ -42,6 +42,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	}
 	.dis{display:block;}
 	.undis{display:none;}
+	.hovertab .slide{background-color: #FFC52F;color:#fff;}
 	#tel_code_button{
 		outline: none;
 		font-size: 1em;

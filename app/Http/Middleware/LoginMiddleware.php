@@ -14,7 +14,7 @@ class LoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        //session(['login' => 'true']);
+        // session(['login' => 'true']);
         if($request->session()->has('login')){
             return $next($request);
         }else{

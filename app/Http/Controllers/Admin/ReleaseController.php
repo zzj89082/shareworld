@@ -30,7 +30,7 @@ class ReleaseController extends Controller
             $config = $config -> where('Earticle','like','%'.$search1.'%');
         }
         //查询数据进行分页
-        $data = $config->paginate($page_count);   
+        $data = $config->orderby('Eid','desc')->paginate($page_count);   
         return view('admin/release/list',['data'=>$data,'search'=>$request ->all()]);
     }
 

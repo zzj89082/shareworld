@@ -16,6 +16,7 @@ use App\Models\Poster;//广告模型
 Use App\Models\Comment;//评论模型
 use App\Models\Release;//发布模型
 use App\Models\Collect;//收藏模型
+use App\Models\Feedback;//信息反馈模型
 use Illuminate\Support\Facades\Cache;//缓存
 class HomeController extends Controller
 {
@@ -30,12 +31,20 @@ class HomeController extends Controller
         $rollimg = Rollimg::all();
         //获取第一条内容
         $content = Content::orderby('Cid','desc')->first();
+        $content['Ccomment'] = Comment::where('Cid','=',$content['Cid'])->count(); 
         //获取除第一条内容之外的所有内容只取4条        
         $content1 = Content::where('Cid','!=',$content->Cid)->take(4)->orderby('Cid','desc')->get();
+        foreach ($content1 as $key => $value) {
+            //统计每条的评论数
+            $content1[$key]['Ccomment'] = Comment::where('Cid','=',$value['Cid'])->count(); 
+        }
         //获取分类为热门的数据       
         $remen = Content::where('Ccategory','=','热门')->orderby('Cid','desc')->get();
-        $data = Release::where('Evideo','!=','null')->take(2)->get();
-        // dd($data);
+        foreach ($remen as $key => $value) {
+            //统计每条的评论数
+            $remen[$key]['Ccomment'] = Comment::where('Cid','=',$value['Cid'])->count(); 
+        }
+        $data = Release::where('Evideo','!=','null') -> orderby('Eid','desc') -> take(2) -> get();
         return view('/home/index',[
             'lunbo'=>'热点推荐',
             'rollimg'=>$rollimg,
@@ -86,18 +95,16 @@ class HomeController extends Controller
     public function getSport()
     {
         //获取体育分类的数据
-        $sport = Content::where('Ccategory','=','体育')->orderby('Cid','desc')->get();
+        $sport = Content::where('Ccategory','=','体育')->orderby('Cid','desc');
+        $sport = $sport -> paginate(6);
         //获取商业广告，取3条
         $poster = Poster::where('POtype','=','商业广告')->orderby('POid','desc')->take(3)->get();
-        $data = Release::where('Evideo','!=','null')->take(1)->get();
         // dd($poster);
         return view('/home/content/sport',[
             'sport'=>$sport,
             'title'=>'体育竞技 ',
             'guanggao'=>'商业广告',
             'poster'=>$poster,
-            'video'=>'热点视频',
-            'data'=>$data,
         ]);
     }
 
@@ -131,26 +138,96 @@ class HomeController extends Controller
 
         //通过评论的id查询--评论的用户
         $com_id = Comment::where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
-        $i = 1;
-        foreach($com_id as $k => $v)
-        {
-            $comment = Comment::find($v);
-            $comment_data[$i]['Did'] = $comment -> Did;//评论编号
-            $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
-            $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
-            $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
-            $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;
-            $i++;
+        if(count($com_id)>0){
+            $i = 1;
+            foreach($com_id as $k => $v)
+            {
+                $comment = Comment::find($v);
+                $comment_data[$i]['Did'] = $comment -> Did;//评论编号
+                $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
+                $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
+                $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
+                $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;
+                $i++;
 
+            }
+            return view('/home/content/military',[
+                'title' => '军事资讯',
+                'military_data' => $military_data,
+                'military_data2' => $military_data2,
+                'poster_data' => $poster_data,
+                'military_hot' => $military_hot,
+                'comment_data' => $comment_data
+            ]);
+        } else {
+            return view('/home/content/military',[
+                'title' => '军事资讯',
+                'military_data' => $military_data,
+                'military_data2' => $military_data2,
+                'poster_data' => $poster_data,
+                'military_hot' => $military_hot,
+            ]);
         }
-        return view('/home/content/military',[
-            'title' => '军事资讯',
-            'military_data' => $military_data,
-            'military_data2' => $military_data2,
-            'poster_data' => $poster_data,
-            'military_hot' => $military_hot,
-            'comment_data' => $comment_data
-        ]);
+    }
+    /**
+     * 美女首页
+     */
+    public function getGril()
+    {
+        //美女动态
+        $gril_data = Content::where('Ccategory','美女') -> orderby('Cid','desc');
+        //添加分页
+        $gril_data = $gril_data->paginate(6);
+        //广告,最新的2个广告
+        $poster_data = Poster::orderby('POid','desc') -> take(2)->get();
+
+        //计算评论最多的id (用$gril_data2重新查询，是为了不影响分页)
+        $gril_data2 = Content::where('Ccategory','美女') -> orderby('Cid','desc') -> get();
+        $data_count = [];
+        foreach ($gril_data2 as $key => $value) {
+            //统计每条的评论数
+            $gril_data2[$key]['count'] = Comment::where('Cid','=',$value['Cid'])->count(); 
+            //统计评论最多
+            $data_count[$value->Cid] = Comment::where('Cid','=',$value['Cid'])->count();
+        }
+        //获取最大值的键名 用于查询
+        $Cid = array_search(max($data_count), $data_count);
+        //得到最多的1个资讯和其评论数
+        $gril_hot = Content::find($Cid);
+        $gril_hot['count'] = Comment::where('Cid','=',$Cid)->count();
+        
+        //通过评论的id查询--评论的用户
+        $com_id = Comment::where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
+        if(count($com_id)>0){
+            $i = 1;
+            foreach($com_id as $k => $v)
+            {
+                $comment = Comment::find($v);
+                $comment_data[$i]['Did'] = $comment -> Did;//评论编号
+                $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
+                $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
+                $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
+                $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;
+                $i++;
+
+            }
+            return view('/home/content/gril',[
+                'title'=>'美女动态',
+                'gril_data' => $gril_data,
+                'gril_data2' => $gril_data2,
+                'poster_data' => $poster_data,
+                'gril_hot' => $gril_hot,
+                'comment_data' => $comment_data
+                ]);
+        } else {
+            return view('/home/content/gril',[
+                'title'=>'美女动态',
+                'gril_data' => $gril_data,
+                'gril_data2' => $gril_data2,
+                'poster_data' => $poster_data,
+                'gril_hot' => $gril_hot,
+                ]);
+        }
     }
     
 
@@ -166,6 +243,7 @@ class HomeController extends Controller
         foreach ($data_novelty as $key => $value) {
             $data_novelty[$key]['Ualais'] = $value ->novelty_user->Ualais; //属于关系 用户名
             $data_novelty[$key]['Uimage'] = $value ->novelty_user->Uimage; //属于关系 用户头像
+            $data_novelty[$key]['Ccomment'] = Comment::where('Cid','=',$value['Cid'])->count(); //计算评论次数
         }
 
         $data_count = [];
@@ -183,6 +261,7 @@ class HomeController extends Controller
         //获取内容的用户
         $data_max['Ualais'] = $data_max->novelty_user->Ualais; //用户名
         $data_max['Uimage'] = $data_max->novelty_user->Uimage; //用户头像
+        $data_max['Ccomment'] = Comment::where('Cid','=',$data_max['Cid'])->count(); 
         $data_max['max'] = max($data_count); //存最多评论数
 
         //评论最多的所有评论信息及用户名
@@ -235,6 +314,7 @@ class HomeController extends Controller
         $data_max['Ualais'] = $data_max->novelty_user->Ualais; //用户名
         $data_max['Uimage'] = $data_max->novelty_user->Uimage; //用户头像
         $data_max['max'] = max($data_count); //存最多评论数
+        $data_max['Ccomment'] = Comment::where('Cid','=',$data_max['Cid'])->count(); 
 
         //评论最多的所有评论信息及用户名
         $data_comment = Comment::where('Cid','=',$Cid)->orderby('created_at','desc')->take(5)->get();
@@ -286,6 +366,7 @@ class HomeController extends Controller
         $data_max['Ualais'] = $data_max->novelty_user->Ualais; //用户名
         $data_max['Uimage'] = $data_max->novelty_user->Uimage; //用户头像
         $data_max['max'] = max($data_count); //存最多评论数
+        $data_max['Ccomment'] = Comment::where('Cid','=',$data_max['Cid'])->count();
 
         //评论最多的所有评论信息及用户名
         $data_comment = Comment::where('Cid','=',$Cid)->orderby('created_at','desc')->take(5)->get();
@@ -308,164 +389,132 @@ class HomeController extends Controller
             ]);
     }
 
-    /**
-     * 美女首页
-     */
-    public function getGril()
-    {
-        //美女动态
-        $gril_data = Content::where('Ccategory','美女') -> orderby('Cid','desc');
-        //添加分页
-        $gril_data = $gril_data->paginate(6);
-        //广告,最新的2个广告
-        $poster_data = Poster::orderby('POid','desc') -> take(2)->get();
-
-        //计算评论最多的id (用$gril_data2重新查询，是为了不影响分页)
-        $gril_data2 = Content::where('Ccategory','美女') -> orderby('Cid','desc') -> get();
-        $data_count = [];
-        foreach ($gril_data2 as $key => $value) {
-            //统计每条的评论数
-            $gril_data2[$key]['count'] = Comment::where('Cid','=',$value['Cid'])->count(); 
-            //统计评论最多
-            $data_count[$value->Cid] = Comment::where('Cid','=',$value['Cid'])->count();
-        }
-        //获取最大值的键名 用于查询
-        $Cid = array_search(max($data_count), $data_count);
-        //得到最多的1个资讯和其评论数
-        $gril_hot = Content::find($Cid); 
-        $gril_hot['count'] = Comment::where('Cid','=',$Cid)->count();
-        
-        //通过评论的id查询--评论的用户
-        $com_id = Comment::where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
-        $i = 1;
-        foreach($com_id as $k => $v)
-        {
-            $comment = Comment::find($v);
-            $comment_data[$i]['Did'] = $comment -> Did;//评论编号
-            $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
-            $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
-            $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
-            $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;
-            $i++;
-
-        }
-        return view('/home/content/gril',[
-            'title'=>'美女动态',
-            'gril_data' => $gril_data,
-            'gril_data2' => $gril_data2,
-            'poster_data' => $poster_data,
-            'gril_hot' => $gril_hot,
-            'comment_data' => $comment_data
-            ]);
-    }
+    
     /**
      * 内容详情页
      */
-    public function getShow($Cid)
+    public function getShow($id)
     {
         //获取当前用户
         $username = session('home_login');
-        $collect = Collect::where('cid','=',$Cid)->first();
+        $user = User::where('Ualais','=',$username)->orWhere('Uemail','=',$username)->orWhere('Utel','=',$username)->first();
+        $collect = Collect::where('cid','=',$id)->where('uid','=',$user['Uid'])->first();
         //获取单个的内容
-        $content_show = Content::find($Cid);
+        $content_show = Content::find($id);
+        $content_show -> Ccount +=1;
+        $content_show -> save();
         //广告,最新的2个广告
         $poster_data = Poster::orderby('POid','desc') -> take(2)->get();
-        //相关评论
+         //相关评论
         //通过评论的id查询--评论的用户
-        $com_id = Comment::where('Cid','=',$Cid) -> orderby('Did','desc') -> take(10) -> lists('Did');
-        $i = 1;
-        if($com_id->count() > 0){
-            foreach($com_id as $k => $v)
-            {
-                $comment = Comment::find($v);
-                $comment_data[$i]['Did'] = $comment -> Did;//评论编号
-                $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
-                $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
-                $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
-                $comment_data[$i]['Ualais'] = $comment -> comment_users -> Ualais;//评论者昵称
-                // dd(DB::select('select * from sw_discuss where Bualais=? and Cid=?',[$comment_data[$i]['Ualais'],$Cid]));
-                //回复的用户
-                if(DB::select('select * from sw_discuss where Bualais=? and Cid=?',[$comment_data[$i]['Ualais'],$Cid]) != null){
-                    $reply_Ualais = Comment::where('Bualais','=',$comment_data[$i]['Ualais']) -> where('Cid','=',$Cid) -> orderby('Did','desc') -> take(5) -> lists('Did');
+        //取Eid隐藏域传递Eid
+         //取Eid隐藏域传递Eid
+        $data_find = Content::find($id);
+        $user = User::where('Utel',session('home_login'))->orWhere('Uemail',session('home_login'))->first();
+        //取评论内容的评论
+        $data_get = Comment::where('Bualais','=',0)->where('Homebualais','!=','null')->where('Cid',$id)->orderBy('created_at','asc')->get();
+        if(!empty($data_get[0])) {
+            //循环使用模型
+            $data_bp = [];
+            foreach ($data_get as $key => $value) {
+                $data_get[$key]['Uimage'] = $value->comment_user->Uimage; //取用户头像
+                //取标识
+                $data_bp = Comment::where('Cid',$id)->lists('Discuss_type2');
+                //第一层评论
+                // $data_get1 = Comment::where('Eid',$id)->where('Discuss_type',$value->Discuss_type)->where('Discuss_type2',$value->Did)->get();                
 
-                    $j = 1;
-                    foreach($reply_Ualais as $key => $value)
-                    {
-                        $reply = Comment::find($value);
-                        $reply_data[$j]['Did'] = $reply -> Did;//评论编号
-                        $reply_data[$j]['Dcontent'] = $reply -> Dcontent;//评论内容
-                        $reply_data[$j]['created_at'] = $reply -> created_at;//评论时间
-                        $reply_data[$j]['Uid'] = $reply -> Uid;//评论者ID
-                        $reply_data[$j]['Ualais'] = $reply -> comment_users -> Ualais;//评论者昵称
-                        $reply_data[$j]['Uimage'] = $reply -> comment_users -> Uimage;//评论者的头像
-                        $j++;
-                    } 
-
-                    $comment_data[$i]['replay'] = true;
-                } else {
-                    $comment_data[$i]['replay'] = false;
+                foreach ($data_bp as $key1 => $value1) {
+                     if($value1 == null) {
+                        unset($value1);
+                        continue;
+                    }
+                    if($value1 == $value->Did) {
+                        $value['yi'] = Comment::where('Discuss_type2',$value1)->orderBy('created_at','asc')->get(); 
+                    }
                 }
+            }    
+        }
+        //取出头像
+        foreach ($data_get as $key => $value) {
+            if(isset($value->yi)) {
+                foreach ($value->yi as $key1 => $value1) {
+                    $value->yi[$key1]['Uimage']  = $value1->comment_user->Uimage; //取用户头像
+                }
+            }
+            
+        }
 
-                $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;//评论者的头像
-                $i++;
+        $a = [];
+        if(isset($data_bp)) {
+            foreach ($data_bp as $k => $v) {
+                if($v == null) {
+                    unset($k);
+                    continue;
+                }
+                $a[] = $v;
+            }   
+            sort($a);
+        }
+
+        foreach ($data_get as $key => $value) {
+            if(isset($value->yi)) {
+                foreach ($value->yi as $key1 => $value1) {
+                    $value1['yi2'] = Comment::where('Discuss_type2',$value1->Did)->orderBy('created_at','asc')->get();
+                    foreach ($value1->yi2 as $key2 => $value2) {
+                        $value1['yi2'][$key2]['Uimage'] = $value2->comment_user->Uimage; //取用户头像
+                    }
+                }
             }
-            if(empty($reply_data)){
-                 return view('/home/content/show',[
-                'content_show'=>$content_show,
-                'poster_data' => $poster_data,
-                'comment_data' => $comment_data,
-                'collect'=>$collect,
-                'reply_data' => null
-                ]);
-            }
-         return view('/home/content/show',[
-        'content_show'=>$content_show,
-        'poster_data' => $poster_data,
-        'comment_data' => $comment_data,
-        'reply_data' => $reply_data,
-        'collect'=>$collect,
-        ]);
-       
-        }else {
-            return view('/home/content/show',[
-            'content_show'=>$content_show,
+        }
+        return view('/home/content/show',[
+            'data_find'=>$data_find,
+            'data_get'=>$data_get,
+            'user'=>$user,
+            'content_show' => $content_show,
             'poster_data' => $poster_data,
             'collect'=>$collect,
-            'comment_data' => null,
-            'reply_data' => null
-            ]);
-        }
+        ]);
     }
     /**
      * 发表评论
      */
-    public function postComment(Request $request,$Cid)
+    public function postComment(Request $request)
     {
-        if($request->session()->has('home_login')==false && $request->cookie('home_login') == null){
-            return '<script type="text/javascript">alert("请您登录");location.href="/home/login/index"</script>';
-        }
-        $Cid = $Cid;//获取内容的ID
-        if($request->session()->has('home_login')){
-            $Ualais = session('home_login');//获取session中用户的信息
-        }
-        if($request->cookie('home_login')){
-            $Ualais = $request->cookie('home_login');//获取cookie中用户的信息
-        }
-        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
-        $Uid = $user['Uid'];//取出用户的ID
-        // dd($Uid);
-        $data = $request -> only('Dcontent');//获取评论的内容
-
-        // 验证请求...
-        $flight = new Comment;
-        $flight->Uid = $Uid;
-        $flight->Cid = $Cid;
-        $flight->Dcontent = $data['Dcontent'];
-        $res = $flight->save();
-        if($res){
-             return '<script type="text/javascript">alert("回复成功");location.href="/home/show/'.(int)$Cid.'"</script>';
-        }else {
-             return '<script type="text/javascript">alert("回复失败");location.href="/home/show/'.(int)$Cid.'"</script>';
+        if(isset($request->tijiao_content)) {
+            //接收恢复数据
+            $huifu_data = $request -> except('_token');
+            // 取用户信息
+            $user = User::where('Utel',session('home_login'))->orWhere('Uemail',session('home_login'))->first();
+            if($user) {
+                //执行插入
+                $id = Comment::insertGetId(['Uid'=>$user->Uid,'Discuss_type2'=>$huifu_data['Discuss_type2'],'Discuss_type'=>$huifu_data['Discuss_type'],'Bualais'=>$huifu_data['username'],'Homebualais'=>$user->Ualais,'Cid'=>$huifu_data['Eid'],'Dcontent'=>$huifu_data['tijiao_content'],'created_at'=>date('Y-m-d H:i:s',time())]);
+                //返回插入数据 json
+                $data = Comment::find($id);
+                $data->Uimg = $user->Uimage;
+                echo json_encode($data);
+            } else {
+                echo 0;
+            }
+        } else {
+             //接收数据
+            $comment_data = $request -> except('_token');
+            // 取用户信息
+            $user = User::where('Utel',session('home_login'))->orWhere('Uemail',session('home_login'))->first();
+            if($user) {
+                //执行插入
+                $id = Comment::insertGetId(['Uid'=>$user->Uid,'Homebualais'=>$user->Ualais,'Cid'=>$comment_data['Eid'],'Dcontent'=>$comment_data['comment'],'created_at'=>date('Y-m-d H:i:s',time())]);
+                //插入Discuss_type 获取自身的ID
+                $type = Comment::find($id);
+                $type->Discuss_type = $id;
+                $type->save();
+                //返回插入数据 json
+                $data = Comment::find($id);
+                $data->Uimg = $user->Uimage;
+                $data->Did = $id;
+                echo json_encode($data);
+            } else {
+                echo 0;
+            }
         }
     }
     /**
@@ -488,24 +537,18 @@ class HomeController extends Controller
      */
     public function getVideo()
     {
-        $data = Release::where('Evideo','!=','null')->get();
+        $data = Release::where('Evideo','!=','null')->orderby('Eid','desc');
+        $data = $data->paginate(4);
         $content = Content::orderby('Cid','desc')->first();
         //获取除第一条内容之外的所有内容只取4条
         $content1 = Content::where('Cid','!=',$content->Cid)->take(4)->orderby('Cid','desc')->get();
-        //获取分类为热门的数据
-        $remen = Content::where('Ccategory','=','热门')->orderby('Cid','desc')->get();
-        $data = Release::where('Evideo','!=','null')->take(2)->get();
-        // dd($data);
         return view('home.content.video',[
-            'lunbo'=>'热点推荐',
+            'title'=>'最新视频',
             'redian'=>'每日热点',
             'content'=>$content,
             'content1'=>$content1,
-            'remen'=>$remen,
             'data'=>$data,
         ]);
-
-        return view('home.content.video',['data' => $data]);
     }
 
     /**
@@ -527,5 +570,45 @@ class HomeController extends Controller
         }
         return view('home.content.content',['data'=>$data]);
 
+    }
+    /**
+     * 关于我们
+     */
+    public function getGuanyu()
+    {
+       return view('home.content.guanyu');
+    }
+    /**
+     * 信息反馈
+     */
+    public function getFankui()
+    {
+        //通过session查找用户
+        $Ualais = session('home_login');
+        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
+        $feedback = Feedback::where('Uid','=',$user['Uid']) -> get();
+        return view('home/content/feedback',['feedback' => $feedback]);
+    }
+    /**
+     * 添加反馈
+     */
+    public function postAddfankui(Request $request)
+    {
+        $data = $request -> except(['_token']);
+        //通过session查找用户
+        $Ualais = session('home_login');
+        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
+        $Uid = $user['Uid'];
+
+        //发送存储
+        $feedback = new Feedback;
+        $feedback -> Uid = $Uid;
+        $feedback -> Fcontent = $data['text'];
+        $res = $feedback -> save();
+        if($res){
+            return '<script type="text/javascript">alert("反馈成功");location.href="'.$_SERVER["HTTP_REFERER"].'";</script>';
+        } else {
+            return '<script type="text/javascript">alert("反馈失败");location.href="'.$_SERVER["HTTP_REFERER"].'";</script>';
+        }
     }
 }

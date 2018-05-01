@@ -119,6 +119,15 @@ class LoginController extends Controller
         header('Content-Type: image/jpeg');
         $builder->output();
     }
+    /**
+     * 退出登录
+     */
+    public function getClearsession(Request $request)
+    {
+        //清除session中某个键
+        $request->session()->forget('login');
+        echo 1;
+    }
 
     /**
      * Show the form for editing the specified resource.

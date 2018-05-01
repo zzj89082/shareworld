@@ -11,6 +11,7 @@ Use App\Models\Comment;//评论模型
 use App\Models\Content;//内容模型
 use App\Models\Poster;//广告模型
 use App\Models\Release;//发布模型
+use App\Models\Collect;//收藏模型
 class ReleaseController extends Controller
 {
     /**
@@ -292,10 +293,13 @@ class ReleaseController extends Controller
     /**
      * 发布详情页
      */
-    public function getReleaseshow($Eid)
+    public function getReleaseshow($id)
     {
+        $username = session('home_login');
+        $user = User::where('Ualais','=',$username)->orWhere('Uemail','=',$username)->orWhere('Utel','=',$username)->first();
+        $collect = Collect::where('eid','=',$id)->where('uid','=',$user['Uid'])->first();
         //获取单个的内容
-        $content_show = Release::find($Eid);
+        $content_show = Release::find($id);
         if(!empty($content_show['Eimg'])){ 
             $content_show['Eimg'] = explode(',',rtrim($content_show['Eimg'],','));
         }
@@ -304,98 +308,72 @@ class ReleaseController extends Controller
         $poster_data = Poster::orderby('POid','desc') -> take(2)->get();
         //相关评论
         //通过评论的id查询--评论的用户
-        $com_id = Comment::where('Eid','=',$Eid) -> orderby('Did','desc') -> take(10) -> lists('Did');
-        $i = 1;
-        if($com_id->count() > 0){
-            foreach($com_id as $k => $v)
-            {
-                $comment = Comment::find($v);
-                $comment_data[$i]['Did'] = $comment -> Did;//评论编号
-                $comment_data[$i]['Dcontent'] = $comment -> Dcontent;//评论内容
-                $comment_data[$i]['created_at'] = $comment -> created_at;//评论时间
-                $comment_data[$i]['Bualais'] = $comment -> Bualais;//评论者昵称
-                $comment_data[$i]['Uid'] = $comment -> Uid;//评论者ID
-                $comment_data[$i]['Ualais'] = $comment -> comment_users -> Ualais;//评论者昵称
-                $comment_data[$i]['Uimage'] = $comment -> comment_users -> Uimage;//评论者的头像
-                //回复的用户
-                if(DB::select('select * from sw_discuss where Bualais=? and Eid=?',[$comment_data[$i]['Ualais'],$Eid]) != null){
-                    $reply_Ualais = Comment::where('Bualais','=',$comment_data[$i]['Ualais']) -> where('Eid','=',$Eid) -> orderby('Did','desc') -> take(5) -> lists('Did');
-                    $j = 1;
-                    foreach($reply_Ualais as $key => $value)
-                    {
-                        $reply = Comment::find($value);
-                        $reply_data[$j]['Did'] = $reply -> Did;//评论编号
-                        $reply_data[$j]['Dcontent'] = $reply -> Dcontent;//评论内容
-                        $reply_data[$j]['created_at'] = $reply -> created_at;//评论时间
-                        $reply_data[$j]['Uid'] = $reply -> Uid;//评论者ID
-                        $reply_data[$j]['Ualais'] = $reply -> comment_users -> Ualais;//评论者昵称
-                        $reply_data[$j]['Bualais'] = $reply -> Bualais;//评论者ID
-                        $reply_data[$j]['Uimage'] = $reply -> comment_users -> Uimage;//评论者的头像
-                        $j++;
-                    }
-                    
-                    $comment_data[$i]['replay'] = true;
-                } else {
-                    $comment_data[$i]['replay'] = false;
-                }
-                if($comment_data[$i]['Bualais']!='0'){
-                    unset($comment_data[$i]);
-                }
-                $i++;
-            }
-            if(empty($reply_data)){
-                 return view('/home/personal/releaseshow',[
-                'content_show'=>$content_show,
-                'poster_data' => $poster_data,
-                'comment_data' => $comment_data,
-                'reply_data' => null
-                ]);
-            }
-         return view('/home/personal/releaseshow',[
-        'content_show'=>$content_show,
-        'poster_data' => $poster_data,
-        'comment_data' => $comment_data,
-        'reply_data' => $reply_data
-        ]);
-       
-        }else {
-            return view('/home/personal/releaseshow',[
-            'content_show'=>$content_show,
-            'poster_data' => $poster_data,
-            'comment_data' => null,
-            'reply_data' => null
-            ]);
-        }
-    }
-    /**
-     * 发表评论
-     */
-    public function postComment(Request $request,$Eid)
-    {
-        if($request->session()->has('home_login')==false && $request->cookie('home_login') == null){
-            return '<script type="text/javascript">alert("请您登录");location.href="/home/login/index"</script>';
-        }
-        if($request->session()->has('home_login')){
-            $Ualais = session('home_login');//获取session中用户的信息
-        }
-        if($request->cookie('home_login')){
-            $Ualais = $request->cookie('home_login');//获取cookie中用户的信息
-        }
-        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
-        $Uid = $user['Uid'];//取出用户的ID
-        // dd($Uid);
-        $data = $request -> only('Dcontent');//获取评论的内容
+        //取Eid隐藏域传递Eid
+         //取Eid隐藏域传递Eid
+        $data_find = Release::find($id);  
+        $user = User::where('Utel',session('home_login'))->orWhere('Uemail',session('home_login'))->first();
+        //取评论内容的评论
+        $data_get = Comment::where('Bualais','=',0)->where('Homebualais','!=','null')->where('Eid',$id)->orderBy('created_at','asc')->get();
+        if(!empty($data_get[0])) {
+            //循环使用模型
+            $data_bp = [];
+            foreach ($data_get as $key => $value) {
+                $data_get[$key]['Uimage'] = $value->comment_user->Uimage; //取用户头像
+                //取标识
+                $data_bp = Comment::where('Eid',$id)->lists('Discuss_type2');
+                //第一层评论
+                // $data_get1 = Comment::where('Eid',$id)->where('Discuss_type',$value->Discuss_type)->where('Discuss_type2',$value->Did)->get();                
 
-        // 验证请求...
-        $flight = new Comment;
-        $flight->Uid = $Uid;
-        $flight->Eid = $Eid;
-        $flight->Dcontent = $data['Dcontent'];
-        $res = $flight->save();
-        if($res){
-             return '<script type="text/javascript">alert("回复成功");location.href="/release/releaseshow/'.(int)$Eid.'"</script>';
-        }else {
-             return '<script type="text/javascript">alert("回复失败");location.href="/release/releaseshow/'.(int)$Eid.'"</script>';
+                foreach ($data_bp as $key1 => $value1) {
+                     if($value1 == null) {
+                        unset($value1);
+                        continue;
+                    }
+                    if($value1 == $value->Did) {
+                        $value['yi'] = Comment::where('Discuss_type2',$value1)->orderBy('created_at','asc')->get(); 
+                    }
+                }
+            }    
         }
+        //取出头像
+        foreach ($data_get as $key => $value) {
+            if(isset($value->yi)) {
+                foreach ($value->yi as $key1 => $value1) {
+                    $value->yi[$key1]['Uimage']  = $value1->comment_user->Uimage; //取用户头像
+                }
+            }
+            
+        }
+
+        $a = [];
+        if(isset($data_bp)) {
+            foreach ($data_bp as $k => $v) {
+                if($v == null) {
+                    unset($k);
+                    continue;
+                }
+                $a[] = $v;
+            }   
+            sort($a);
+        }
+
+        foreach ($data_get as $key => $value) {
+            if(isset($value->yi)) {
+                foreach ($value->yi as $key1 => $value1) {
+                    $value1['yi2'] = Comment::where('Discuss_type2',$value1->Did)->orderBy('created_at','asc')->get();
+                    foreach ($value1->yi2 as $key2 => $value2) {
+                        $value1['yi2'][$key2]['Uimage'] = $value2->comment_user->Uimage; //取用户头像
+                    }
+                }
+            }
+        }
+        return view('/home/personal/releaseshow',[
+            'data_find'=>$data_find,
+            'data_get'=>$data_get,
+            'user'=>$user,
+            'content_show' => $content_show,
+            'poster_data' => $poster_data,
+            'collect'=>$collect,
+            ]);
     }
 }

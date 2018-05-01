@@ -1,6 +1,21 @@
 @extends('admin/layout/header')
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger" style="margin-left:180px;width:400px;" id="box">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+        <script type="text/javascript">
+            $('#box').click(function(){
+               $(this).css('display','none');
 
+
+            });
+        </script>
+    </div>
+@endif
         <!--main content start-->
 <section id="main-content">
     <section class="wrapper">

@@ -189,4 +189,13 @@ class LoginController extends Controller
             return redirect('/');
         }
     }
+    /**
+     * 退出登录
+     */
+    public function getOut(Request $request)
+    {
+        //清除session中某个键
+        $request->session()->forget('home_login');
+        return '<script type="text/javascript">alert("退出成功");location.href="/"</script>';
+    }
 }

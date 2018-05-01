@@ -7,18 +7,18 @@
 	 	<!--/top-news-->
 		<div class="top-news" style="margin-top:-50px;">
 		  	<!-- 中间 -->
+		  	<style type="text/css">
+				.zzjhove img:hover{box-shadow: 0 0 5px 1px #6BC4C7}
+		  	</style>
 			<div class="top-inner second">
 				@foreach($military_data as $k => $v)
-					<div class="col-md-6 top-text">
+					<div class="col-md-6 top-text zzjhove" style="height:430px;">
 						 <a href="/home/show/{{$v->Cid}}"><img src="{{$v->Cpicture}}" class="img-responsive" alt="" style="height:300px;"></a>
-						    <h5 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h5>
+						    <h4 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h4>
 							<p>{{mb_substr($v->Ccontent,0,66).'..'}}</p>
 						    <p>{{strtok($v->created_at,' ')}}
-							    <a class="span_link" href="single.html" style="float:right">
-							    	<span class="glyphicon glyphicon-circle-arrow-right"></span>
-							    </a>
 						    	<a class="span_link" href="#" style="float:right">
-							    	<span class="glyphicon glyphicon-eye-open"></span>56 
+							    	<span class="glyphicon glyphicon-eye-open"></span>{{$v->Ccount}} 
 							    </a>
 							    <a class="span_link" href="#" style="float:right">
 							    	<span class="glyphicon glyphicon-comment"></span>{{$military_data2[$k]['count']}} 
@@ -48,35 +48,35 @@
 	 <div class="general-news">
 		<div class="general-inner">
 				<div class="general-text">
-					 <a href="single.html"><img src="{{$military_hot['Cpicture']}}" class="img-responsive" alt=""></a>
-					    <h5 class="top"><a href="single.html">{{mb_substr($military_hot['Ctitle'],0,16).'..'}}</a></h5>
+					 <a href="/home/show/{{$military_hot->Cid}}"><img src="{{$military_hot['Cpicture']}}" class="img-responsive" alt=""></a>
+					    <h4 class="top"><a href="/home/show/{{ $military_hot->Cid }}">{{mb_substr($military_hot['Ctitle'],0,16).'..'}}</a></h4>
 						<p>{{mb_substr($military_hot->Ccontent,0,66).'..'}}</p>
 					    <p>{{strtok($military_hot['created_at'],' ')}}
-					    <a class="span_link" href="#">
+					    <a class="span_link" href="/home/show/{{ $military_hot->Cid }}">
 					    	<span class="glyphicon glyphicon-comment"></span>{{$military_hot['count']}}  
 					    </a>
-					    <a class="span_link" href="#">
-					    	<span class="glyphicon glyphicon-eye-open"></span>56 
-					    </a>
-					    <a class="span_link" href="single.html">
-					    	<span class="glyphicon glyphicon-circle-arrow-right"></span>
-					    </a>
+					   
+					    	<span class="glyphicon glyphicon-eye-open"></span>{{$military_hot->Ccount}}  
+					   
 					    </p>
 				</div>
 			 	<div class="edit-pics">
+			 	@if(isset($comment_data))
 			 		@foreach($comment_data as $k => $v)	
 		      		<div class="editor-pics">
 					 <div class="col-md-3 item-pic">
-					   <a href="/member/{{$v['Uid']}}"><img src="{{ $v['Uimage'] }}" class="img-responsive" alt="" style="width:100px;height:70px;"></a>
+					   <a href="/home/show/{{$military_hot->Cid}}"><img src="{{ $v['Uimage'] }}" class="img-responsive" alt="" style="width:100px;height:70px;"></a>
 
 					   </div>
 						<div class="col-md-9 item-details">
-							<h5 class="inner two"><a href="single.html" title="{{$v['Dcontent']}}">{{mb_substr($v['Dcontent'],0,14).'..'}}</a></h5>
-							 <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{strtok($v['created_at'],' ')}} <a href="/comment/{{$v['Uid']}}"><i class="glyphicon glyphicon-comment"></i>0 </a></div>
+							<h5 class="inner two"><a href="/home/show/{{$military_hot->Cid}}" title="{{$v['Dcontent']}}">{{mb_substr($v['Dcontent'],0,14).'..'}}</a></h5>
+							 <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{strtok($v['created_at'],' ')}} <a href="/home/show/{{$military_hot->Cid}}"><i class="glyphicon glyphicon-comment"></i></a></div>
 						 </div>
 						<div class="clearfix"></div>
 					</div>
+					
 					@endforeach
+				@endif
 				</div>
 				<div class="media">	
 					 <h3 class="tittle media">Poster <i class="glyphicon glyphicon-leaf"></i></h3>

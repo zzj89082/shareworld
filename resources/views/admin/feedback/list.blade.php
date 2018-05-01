@@ -21,7 +21,7 @@
                           <h6>administrator</h6>
                         </div>
                         <div class="col-lg-10 col-sm-10 follow-info">
-                            <p>Hello I’m Jenifer Smith, a leading expert in interactive and creative design.</p>
+                            <p>用心做好每件事,不忘初心,方得始终.</p>
                             <p>{{session('Uinfo')['Uemail']}}</p>
 							              <p><i class="fa fa-twitter"> 当前系统时间</i></p>
                             <h6>

@@ -40,17 +40,16 @@ class FeedbackController extends Controller
 
         }
         
-        /*//搜索块
+        //搜索块
         $Ualais = new User;
         //接收搜索关键字
         $Ualais = $request -> input('search','');
 
         //判断是否存在
         if(isset($Ualais) && !empty($Ualais)){
-            $feedback = User::where('Ualais','like','%'.$Ualais.'%');
-            dd($feedback);
-        }
-        */
+            $Uid = User::where('Ualais','like','%'.$Ualais.'%')->lists('Uid')->first();
+            $feedback = $feedback -> where('Uid','=',$Uid);
+        }       
 
         //获取数据并且分页
         $feedback_data = $feedback -> orderBy('Fid','desc') -> paginate(2);

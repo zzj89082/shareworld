@@ -7,31 +7,26 @@
 			<div class="response">
 				<!-- 发布 -->
 				<div class="media response-info undis" id="tbc_01">
-					@if(count($Uattention_data)<=0)
+					@if(count($data)<=0)
 					<img src="/uploads/none.jpg" alt="">
 					@endif
-					@foreach($Uattention_data as $k => $v)
+					@foreach($data as $k => $v)
 					<div class="media-body" style="margin:10px 0px;border-bottom:1px dashed #AAE0E0">
-						<table width="100%">
+						<style type="text/css">
+							.tablea tr td:hover{background-color: #ccc}
+						</style>
+						<table width="100%" class="tablea">
 							<tr>
-								<td style="padding-bottom:5px;">
-									<img class="media-object" src="{{$v->Uimage}}" alt="暂无头像" title="点击查看" style="width:60px;height:60px;border-radius:50%;border:3px solid #ccc;" onclick="location.href='/user/show/{{$v->Uid}}'"/>
-								</td>
-								<td style="padding:5px;text-indent:1em">
-									<span style="color:#EB7350" style="">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Uinfo,0,56).'..'!!}</span>
-								</td>
-								<td>
-									<h3 style="float:right">
-										<!-- 除了自己都可以关注 -->
-										@if($user['Uid'] != $v->Uid)
-											@if(strstr($user['Uattention'],(string)$v->Uid))
-												<button class="layui-btn layui-btn-warm guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="1">@ 取消关注</button>
-											@else
-												<button class="layui-btn guanzhu" style="margin-left:0.5em" name="{{$v->Uid}}" value="{{$user['Uid']}}" alt="0">@ 点击关注</button>
-											@endif
+									<td style="padding:5px;text-indent:1em">
+										@if($v->Eid != 0)
+										<a href="/release/releaseshow/{{$v->Eid}}">
 										@endif
-									</h3>
-								</td>
+										@if($v->Cid != 0)
+										<a href="/home/show/{{$v->Cid}}">
+										@endif
+										<span style="color:#EB7350" style="">{{$v->Homebualais}}</span> : <span class="result">{!!mb_substr($v->Dcontent,0,56).'..'!!}</span>
+										</a>
+									</td>
 							</tr>
 						</table>
 					</div>
@@ -40,40 +35,6 @@
 					<!-- 分页 -->
 					@endforeach
 				</div>
-			    <!-- 无刷新关注 -->
-			    <script type="text/javascript">
-					$('.guanzhu').click(function(){
-						var uid = $(this).attr('name');//要关注的用户
-						var user = $(this).attr('value');//当前登陆的用户
-						var alt = $(this).attr('alt');//表示符
-
-						if(alt==0){
-					      	$.get('/follow/ajax',{'Uid':uid,'user':user},function(msg){
-					      		if(msg == 1){
-					      			layer.msg('关注成功', {
-							        	time: 2000, //20s后自动关闭
-							      	});
-							      	$('.guanzhu[name='+uid+']').text('@ 取消关注');
-							      	$('.guanzhu[name='+uid+']').attr('alt',1);
-							      	$('.guanzhu[name='+uid+']').attr('class','layui-btn layui-btn-warm guanzhu');
-					      		}
-					      		
-					      	},'HTML');
-						}else{
-							$.get('/follow/ajax2',{'Uid':uid,'user':user},function(msg){
-					      		if(msg == 1){
-					      			layer.msg('取消成功', {
-							        	time: 2000, //20s后自动关闭
-							      	});
-							      	$('.guanzhu[name='+uid+']').text('@ 点击关注');
-							      	$('.guanzhu[name='+uid+']').attr('alt',0);
-							      	$('.guanzhu[name='+uid+']').attr('class','layui-btn guanzhu');
-					      		}
-					      		
-					      	},'HTML');
-						}
-					});
-				</script>
 
 				<!-- 发布end -->
 				

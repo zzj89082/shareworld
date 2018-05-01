@@ -42,7 +42,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	}
 	.dis{display:block;}
 	.undis{display:none;}
+	.hovertab .slide{background-color: #FFC52F;color:#fff;}
+
 </style>
+
 </head>
 <body>
 <div class="w3-agile-banner">
@@ -90,7 +93,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					</li>
 				</ul>
 			</div>
-
+			
 			<div class="clear" style="height:20px;"></div>
 			<!-- 邮箱登录 -->
 			<div class="sub-main-w3 dis" id="tbc_01">	
@@ -109,15 +112,14 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					</script>
 					</p>
 					<div class="clear"></div>
-					<div class="rem-w3">
-						<span class="check-w3"><input type="checkbox" />记住密码</span>
+					<div class="rem-w3" style="margin:0">
+						<!-- <span class="check-w3"><input type="checkbox" id="ji_email"/>记住密码</span> -->
 						<a class="w3-pass" href="/home/forgetlogin/emailphone" target="_blank">忘记密码?</a>
 						<div class="clear"></div>
 					</div>
 					
 					<input type="submit" value="直接登录">
 				</form>
-
 			</div>
 			<!-- 邮箱登录end -->
 
@@ -139,8 +141,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					</script>
 					</p>
 					<div class="clear"></div>
-					<div class="rem-w3">
-						<span class="check-w3"><input type="checkbox" />记住密码</span>
+					<div class="rem-w3" style="margin:0">
+						<!-- <span class="check-w3"><input type="checkbox" />记住密码</span> -->
 						<a class="w3-pass" href="/home/forgetlogin/emailphone" target="_blank">忘记密码?</a>
 						<div class="clear"></div>
 					</div>

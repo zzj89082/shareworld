@@ -7,7 +7,7 @@ use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\User;
-use App\Http\Requests\UserAddRequest;
+use App\Http\Requests\UserEditRequest;
 class UserController extends Controller
 {
     /**
@@ -143,12 +143,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserEditRequest $request, $id)
     {
 
 //        if(session(Uinfo)['Upower'])
         //处理字段信息
         $data = $request->except('_token','_method');
+        $tem_data = User::where('Ualais',$data['Ualais'])->where('Uid','!=',$data['_Uid'])->first();
+        if(!empty($tem_data)){
+            return back()->with('error','用户名已存在');
+        }
         //如果用户从新添加的图片
         if(isset($data['Uimage'])){
             $file = $request->file('Uimage');

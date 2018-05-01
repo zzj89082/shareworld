@@ -64,6 +64,8 @@ class ReleaseController extends Controller
     public function show($id)
     {
         $data = Release::find($id);
+        // dump($data['Evideo']);
+        // dd(empty($data['Evideo']));
         //将字符串分割数组 （遍历）
         if(!empty($data->Eimg)) {
             $Eimg = rtrim($data->Eimg,',');

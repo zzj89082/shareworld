@@ -1,9 +1,14 @@
 $(function(){
+	//判断是否登录
+	var home_login = $('.h31').attr('data2');
 	$('input[data=textcomment]').click(function(){
 		//获取元素
 		var comment = $('textarea[name=text]').val(); //评论内容
 		var Eid = $('input[name=releaseeid]').val(); //EID
 		var token = $('input[name=_token]').val(); //token值
+		if(home_login == '') {
+			return layer.msg("请先登录!", {icon: 5,anim: 6,time: 1000});
+		}
 		//判断是否为空
 		if(comment == '' || comment == '请输入你要评论的内容') {
 			return layer.msg("内容不能为空", {icon: 5,anim: 6,time: 1000});
@@ -32,6 +37,9 @@ $(function(){
 	//回复
 	var username,Discuss_type,Homebualais,Discuss_type;
 	$('.response > .media-body > ul > li > .huifu').click(function(){
+		if(home_login == '') {
+			return layer.msg("请先登录!", {icon: 5,anim: 6,time: 1000});
+		}
 		//先让所有的隐藏
 		$('.response > .media-body > ul > li > .huifu').parent().parent().next().css('display','none');
 		username = $(this).parent().prev().prev().find('a').text(); //获取用户名

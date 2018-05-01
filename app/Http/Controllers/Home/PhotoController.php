@@ -33,6 +33,7 @@ class PhotoController extends Controller
             'pic'=>$pic,
             'photo'=>$photo,
             'zhaopian'=>$Photo,
+            'title'=>'个人相册',
         ]);
     }
 

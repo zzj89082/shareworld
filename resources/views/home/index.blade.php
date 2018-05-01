@@ -9,7 +9,7 @@
 			<ul class="rslides" id="slider4">
 				@foreach($rollimg as $v)
 		       	 <li>
-					  <img src="{{ $v->Rimg }}" class="img-responsive" alt="" style="width:736px;height:402px;"/>
+					  <a href="{{ $v->Ra }}" target="_blank"><img src="{{ $v->Rimg }}" class="img-responsive" alt="" style="width:736px;height:402px;"/></a>
    				</li>
 				@endforeach
 				</ul>

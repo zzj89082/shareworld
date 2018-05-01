@@ -215,7 +215,7 @@
 		<div class="general-inner">
 			@foreach ($poster as $v)
 			<div class="general-text">
-				<a href="/home/show/{{ $v->POid }}"><img src="{{ $v->POpic }}" class="img-responsive" alt=""></a>
+				<a href="{{$v->POurl}}"><img src="{{ $v->POpic }}" class="img-responsive" alt=""></a>
 				<h4 class="top"><a href="single.html">{{ $v->POauthor }}</a></h4>
 			</div>
 			 @endforeach

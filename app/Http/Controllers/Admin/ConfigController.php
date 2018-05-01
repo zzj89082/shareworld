@@ -113,8 +113,8 @@ class ConfigController extends Controller
         //接收post传值
         $data = $request -> except(['_token']);
         //判断是否上传图片 最多上传多少张
-        if(empty($data)) {
-            return back()->with('error','图片至少一张'); 
+        if(empty($data['Rimg']) || empty($data['Ra'])) {
+            return back()->with('error','不能为空'); 
         }
         //图片上传
         $Rimg = $request->file('Rimg');
@@ -130,7 +130,7 @@ class ConfigController extends Controller
         DB::beginTransaction();
         //实例化上传图片
         $rollimg = new Rollimg;
-        $res3 = $rollimg -> insertGetId(['created_at'=>date('Y-m-d H:i:s',time()),'Rimg'=>$filedir]);
+        $res3 = $rollimg -> insertGetId(['created_at'=>date('Y-m-d H:i:s',time()),'Rimg'=>$filedir,'Ra'=>$data['Ra']]);
         //插入轮播图ID 
         $config = Config::find(1);
         $config ->config_rollimg = $config->config_rollimg.$res3.',';

@@ -8,7 +8,7 @@
     <meta name="author" content="GeeksLabs">
 
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-    <link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
+    <link href="{{ session('data')['config_ico'] }}" type="image/x-icon" rel="chortcut icon"/>
     <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
     <script type="text/javascript" src="/layui/layui.all.js"></script>
     <script type="text/javascript" src="/layui/jquery-3.2.1.min.js"></script>

@@ -56,7 +56,7 @@
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                <input  id ="code" type="password" class="form-control" style="width: 140px;"  placeholder="验证码" name="code" value="">
+                <input  id ="code" type="text" class="form-control" style="width: 140px;"  placeholder="验证码" name="code" value="">
                 <img src="/admin/code" title="点击切换" onclick="rand_code(this)" style="height: 42px;border-radius: 10px;float:right;">
             </div>
             {{--<div class="input-group">--}}

@@ -16,6 +16,12 @@
                   </div>
               </div>
               <div class="form-group">
+                  <label for="Ra" class="control-label col-lg-2">图片链接<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                      <input class="form-control" id="Ra" name="Ra" minlength="5" type="text">
+                  </div>
+              </div>
+              <div class="form-group">
                   <div class="col-lg-offset-2 col-lg-9">
                       <button class="btn btn-primary form-control" type="submit">更换轮播图</button>
                   </div>

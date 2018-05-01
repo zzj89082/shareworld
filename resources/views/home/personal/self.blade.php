@@ -52,6 +52,7 @@
                     </div>
                 </div>
                 <br>
+                 
                 <input id="subject" name="_Uid" minlength="5" type="hidden"  value ="{{$data->Uid}}">
                 <div class="form-group ">
                     <label for="ccomment" class="control-label col-lg-2">自我介绍<span class="required">*</span></label>

@@ -13,7 +13,7 @@
 			<p class="phn" style="font-size:18px;">{{strtok($content_show['Ctitle'],' ')}}</p>
 			<p class="phn" style="font-size:18px;">{{strstr($content_show['Ctitle'],' ')}}</p>
 			<p class="phn-bottom"><span>{{strtok($content_show['created_at'],' ')}}</span></p>
-			<p class="lom" style="width:100%;text-indent:2em;font-size:16px;">{{mb_substr($content_show['Ccontent'],0,200).'..'}}</p>
+			<p class="lom" style="width:100%;text-indent:2em;font-size:16px;">{{$content_show['Ccontent']}}</p>
 
 			@if(empty(session('home_login')))
 				<input type="hidden" id="session" name="session" value="0">
@@ -56,7 +56,7 @@
 						   </div>
 
 			    </div>
-				<h3 style="margin-bottom:15px; ">评论内容</h3>
+				<h3 style="margin-bottom:15px;" class="h31" data2="{{ session('home_login') }}">评论内容</h3>
 			@if(!empty($data_get[0]))
 			<!--循环遍历内容评论-->
 			@foreach ($data_get as $k=>$v)

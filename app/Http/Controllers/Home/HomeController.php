@@ -18,6 +18,7 @@ use App\Models\Release;//发布模型
 use App\Models\Collect;//收藏模型
 use App\Models\Feedback;//信息反馈模型
 use Illuminate\Support\Facades\Cache;//缓存
+use App\Models\Config; //网站配置
 class HomeController extends Controller
 {
 
@@ -27,8 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //查询网站配置
+        $data_config = Config::find(1);
+        // 存入session
+        session(['data_config'=>$data_config]);
         //获取轮播图
-        $rollimg = Rollimg::all();
+        $rollimg = Rollimg::orderby('created_at','desc') ->take(4)->get();
         //获取第一条内容
         $content = Content::orderby('Cid','desc')->first();
         $content['Ccomment'] = Comment::where('Cid','=',$content['Cid'])->count(); 

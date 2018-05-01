@@ -2,6 +2,21 @@
 @section('content')
 
         <!--main content start-->
+   @if (count($errors) > 0)
+    <div class="alert alert-danger" style="margin-left:180px;margin-top:30px;width:400px;" id="box">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+        <script type="text/javascript">
+            $('#box').click(function(){
+               $(this).css('display','none');
+         });
+        </script>
+    </div>
+@endif
+     
 <section id="main-content">
     <section class="wrapper">
         <div class="row">
@@ -66,6 +81,7 @@
                                         <input class="form-control" id="subject" name="date" minlength="5" type="date"  value ="{{$data->date}}" required />
                                     </div>
                                 </div>
+                                <input id="subject" name="_Uid" minlength="5" type="hidden"  value ="{{$data->Uid}}">
                                 <div class="form-group ">
                                     <label for="ccomment" class="control-label col-lg-2">自我介绍<span class="required">*</span></label>
                                     <div class="col-lg-10">

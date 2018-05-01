@@ -124,7 +124,7 @@
 				<div class="media response-info undis" id="tbc_01">
 					@foreach($release as $k => $v)
 					<div class="media-left response-text-left" style="margin:10px 0px;">
-						<a href="/user/show/{{$v->Uid}}">
+						<a href="javascript:0">
 							<img class="media-object" src="{{$v->Uimage}}" alt="" style="width:120px;height:100px;"/>
 						</a>
 						<br>
@@ -142,7 +142,7 @@
 
 					</div>
 					<div class="media-body response-text-right" style="margin:10px 0px;border-bottom:1px dashed #AAE0E0;">
-						<p><span style="color:#EB7350">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Earticle,0,66).'..'!!}</span></p>
+						<a href="/release/releaseshow/{{$v->Eid}}"><p><span style="color:#EB7350">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Earticle,0,66).'..'!!}</span></p></a>
 						<p style="min-height:60px;">
 							@if($v->Eimg != null)
 							@foreach($v->Eimg as $key => $value)

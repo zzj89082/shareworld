@@ -26,7 +26,7 @@
                               	<tr>
                               	  <td></td>
                                   <td>发布内容</td>
-                                   <td class="text-center">{{$data->Earticle}}</td>
+                                   <td class="text-left">{{$data->Earticle}}</td>
                               	</tr>
                               	<tr>
                               	  <td></td>
@@ -38,13 +38,22 @@
                       </section>
                   </div>
               </div>
-      		@if(empty($data->Evideo))
-      		<h4 style="margin-left: 525px">发布图片</h4>
-      	@else
-      		<h4 class="text-center">发布视频</h4>
-      	@endif			
-            
-        @if(empty($data->Evideo))
+        
+         
+      
+  		@if(!empty($data->Evideo))
+          <h4 class="text-center">发布视频</h4>
+    	@elseif(!empty($data->Eimg))
+      		<h4 style="text-align: center;">发布图片</h4>
+      @else
+          <h4 style="text-align: center;">发布的内容</h4>
+    	@endif
+        
+
+
+
+    @if(!empty($data->Evideo) || !empty($data->Eimg))        
+      @if(empty($data->Evideo))
 				<div id="wocao" style="width:750px; height: 210px; margin-left: 200px;padding-left: 35px;">	
 				</div>
 				
@@ -53,8 +62,8 @@
 							$('#wocao').append('<div style="width: 100px;height: 100px;float: left;margin: 0px 15px 5px 0px;"><img src="{{ $v }}" style="width: 100px;height: 100px;"></div>');
 					</script>				
 				@endforeach
-		@else
-			<div style="margin-left:340px;width:760px; box-sizing: border-box; height: 200px;">
+		  @else
+			<div style="width:480px;box-sizing: border-box; height: 200px;margin:auto;">
 		      <video width="470" height="200" controls="controls">
 				  <source src="{{ $data->Evideo }}" type="video/mp4" />
 				  <source src="{{ $data->Evideo }}" type="video/ogg" />
@@ -64,7 +73,10 @@
 				  </object>
 				</video>
 			</div>
-		@endif
+      @endif
+    @else
+      <h4 style="text-align: center;">没有发布的图片和视频</h4>
+    @endif
 	</section>
 </section>
 

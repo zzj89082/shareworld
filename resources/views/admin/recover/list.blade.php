@@ -196,7 +196,7 @@
                                                         <a style="color:#4B8CF5" href="/admin/content/{{ $v['Cid'] }}">{{$v -> comment_content['Ctitle'] or ''}}</a>
                                                         @endif
                                                         @if (!empty($v -> comment_release['Earticle']))
-                                                        <a style="color:#4B8CF5" href="/admin/release/{{ $v['Eid'] }}">{{$v -> comment_release['Earticle']}}</a>
+                                                        <a style="color:#4B8CF5" href="/admin/release/{{ $v['Eid'] }}">{{mb_substr($v -> comment_release['Earticle'],0,50).'...'}}</a>
                                                         @endif
                                                       </p>
                                                       <p>{{mb_substr($v['Dcontent'],0,54,'utf8').'..'}}</p>

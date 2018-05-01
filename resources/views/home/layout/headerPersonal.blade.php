@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link href="/admin/img/favicon.png" type="image/x-icon" rel="chortcut icon"/>
+<link href="{{ session('data_config')['config_ico'] }}" type="image/x-icon" rel="chortcut icon"/>
 <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
 <script type="text/javascript" src="/layui/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/layui/layui.all.js"></script>
-<title>{{ Config::get('view.webTitle') }}</title>
+<title>{{ session('data_config')['config_title'] }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -87,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="full">
 			<div class="col-md-3 top-nav">
 				    <div class="logo">
-						<a href="/"><img src="/home/images/logo.jpg" alt=""></a>
+						<a href="/"><img style="width:120px;height:56px;" src="{{ session('data_config')['config_logo'] }}" alt=""></a>
 					</div>
 					<div class="top-menu">
 

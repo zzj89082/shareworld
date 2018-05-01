@@ -17,10 +17,10 @@
 						    <h4 class="top"><a href="/home/show/{{$v->Cid}}" title="{{$v->Ctitle}}">{{mb_substr($v->Ctitle,0,16).'..'}}</a></h4>
 							<p>{{mb_substr($v->Ccontent,0,66).'..'}}</p>
 						    <p>{{strtok($v->created_at,' ')}}
-						    	<a class="span_link" href="#" style="float:right">
+						    	<a class="span_link" href="/home/show/{{$v->Cid}}" style="float:right">
 							    	<span class="glyphicon glyphicon-eye-open"></span>{{$v->Ccount}} 
 							    </a>
-							    <a class="span_link" href="#" style="float:right">
+							    <a class="span_link" href="/home/show/{{$v->Cid}}" style="float:right">
 							    	<span class="glyphicon glyphicon-comment"></span>{{$military_data2[$k]['count']}} 
 							    </a>
 						    </p>

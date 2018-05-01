@@ -84,7 +84,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postAjax2(Request $request)
+    public function ostAjax2(Request $request)
     {
         $data = $request->all();
         $data_two = User::where('Upassswd',$data['upassword'])->where('Ualais',$data['username'])->first();

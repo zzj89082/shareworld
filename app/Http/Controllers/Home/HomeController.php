@@ -33,7 +33,7 @@ class HomeController extends Controller
         // 存入session
         session(['data_config'=>$data_config]);
         //获取轮播图
-        $rollimg = Rollimg::orderby('created_at','desc') ->take(4)->get();
+        $rollimg = Rollimg::orderby('created_at','desc')->take(4)->get();
         //获取第一条内容
         $content = Content::orderby('Cid','desc')->first();
         $content['Ccomment'] = Comment::where('Cid','=',$content['Cid'])->count(); 
@@ -108,6 +108,22 @@ class HomeController extends Controller
         return view('/home/content/sport',[
             'sport'=>$sport,
             'title'=>'体育竞技 ',
+            'guanggao'=>'商业广告',
+            'poster'=>$poster,
+        ]);
+    }
+    /**
+     * 加载八卦模板
+     * @return \Illuminate\Http\Response
+     */
+    public function getBagua()
+    {
+        $bagua = Content::where('Ccategory','=','八卦')->orderby('Cid','desc');
+        $bagua = $bagua -> paginate(6);
+        $poster = Poster::where('POtype','=','商业广告')->orderby('POid','desc')->take(3)->get();
+        return view('/home/content/bagua',[
+            'title'=>'八卦新闻 ',
+            'bagua'=>$bagua,
             'guanggao'=>'商业广告',
             'poster'=>$poster,
         ]);

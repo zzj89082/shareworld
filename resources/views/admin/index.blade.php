@@ -19,7 +19,7 @@
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 					<div class="info-box blue-bg">
 						<i class="fa fa-cloud-download"></i>
-						<div class="count">100万</div>
+						<div class="count">{{ $pu_data }}万</div>
 						<div class="title">本站用户</div>						
 					</div>
 				</div>
@@ -27,7 +27,7 @@
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 					<div class="info-box brown-bg">
 						<i class="fa fa-shopping-cart"></i>
-						<div class="count">10万</div>
+						<div class="count">{{ $V_data }}万</div>
 						<div class="title">大V用户</div>						
 					</div>
 				</div>
@@ -35,14 +35,14 @@
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 					<div class="info-box dark-bg">
 						<i class="fa fa-thumbs-o-up"></i>
-						<div class="count">10万</div>
+						<div class="count">{{ $qiye_data }}万</div>
 						<div class="title">企业用户</div>						
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 					<div class="info-box green-bg">
 						<i class="fa fa-cubes"></i>
-						<div class="count">10万</div>
+						<div class="count">{{ $Vip_data }}万</div>
 						<div class="title">VIP用户</div>						
 					</div>
 				</div>
@@ -63,11 +63,11 @@
                               <h6>administrator</h6>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
-                                <p>Hello administrator, a leading expert in interactive and creative design.</p>
+                                <p>Hello administrator, Welcome To ShareWorld</p>
                                 <p>{{session('Uinfo')['Uemail']}}</p>
-								<p><i class="fa fa-user"> 用户名</i></p>
+								<p><i class="fa fa-user"> 用户名</i> {{ session('Uinfo')['Ualais'] }}</p>
                                 <h6>
-                                    <span><i class="icon_clock_alt"></i>{{ date('H:s',time()) }}</span>
+                                    <span><i class="icon_clock_alt"></i>{{ date('H:i',time()) }}</span>
                                     <span><i class="icon_calendar"></i>{{ date('Y.m.d',time()) }}</span>
                                 </h6>
                             </div>
@@ -134,11 +134,6 @@
                        <tr>
                           <th class="text-center">网站环境</th>
                          	<td class="text-center">{{ $data->config_setting }}</td>
-                          <td class="text-center">{{ $data->updated_at }}</td>
-                      </tr>
-                       <tr>
-                          <th class="text-center">轮播图ID</th>
-                         	<td class="text-center">{{ $data->config_rollimg }}</td>
                           <td class="text-center">{{ $data->updated_at }}</td>
                       </tr>
                       <tr>

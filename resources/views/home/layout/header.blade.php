@@ -69,17 +69,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="/"><img style="width:120px;height:56px;" src="{{ session('data_config')['config_logo'] }}" alt=""></a>
 					</div>
 					<div class="top-menu">
-
+						<?php
+							use App\Models\Type;
+							$data = Type::where('Ttype','!=','热门')->get();
+						?>
+							
+						
 					<ul class="cl-effect-16">
-						<li><a href="/" data-hover="热门">热门</a></li> 
-						<li><a href="/home/top" data-hover="头条">头条</a></li>
-						<li><a href="/home/video" data-hover="视频">视频</a></li>
-						<li><a data-hover="新鲜事" href="{{url('/home/novelty')}}">新鲜事</a></li>
-						<li><a href="{{url('/home/cold')}}" data-hover="搞笑">搞笑</a></li>
-						<li><a href="{{url('/home/fashion')}}" data-hover="时尚">时尚</a></li>
-						<li><a href="/home/military" data-hover="军事">军事</a></li>
-						<li><a href="/home/gril" data-hover="美女">美女</a></li>
-						<li><a href="/home/sport" data-hover="体育">体育</a></li>
+						<li><a href="/" data-hover="热门">热门</a></li>
+						@foreach ($data as $v)
+							<li><a href="/home/{{$v->Turl}}" data-hover="{{$v->Ttype}}">{{$v->Ttype}}</a></li>
+						@endforeach 
+						
 					</ul>
 					<!-- script-for-nav -->
 					<script>

@@ -42,14 +42,14 @@
                               <div class="form-group ">
                                   <label for="Cpicture" class="control-label col-lg-2">文章标题</label>
                                   <div class="col-lg-10">
-                                      <img src="{{ $data->Cpicture }}" style="height:50px">
+                                      <img src="{{ $data->Cpicture }}">
                                   </div>
                               </div>
                                                                   
                               <div class="form-group ">
                                   <label for="ccomment" class="control-label col-lg-2">文章内容</label>
                                   <div class="col-lg-10">
-                                      <textarea class="form-control " id="ccomment"  readonly required/>{{ $data->Ccontent }}</textarea>
+                                      <textarea class="form-control " id="ccomment" style="height:200px;resize: none;"  readonly required/>{{ $data->Ccontent }}</textarea>
                                   </div>
                               </div>
                               <div class="form-group ">

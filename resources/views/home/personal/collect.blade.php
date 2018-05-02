@@ -59,7 +59,7 @@
 
 					</div>
 					<div class="media-body response-text-right" style="margin:10px 0px;border-bottom:1px dashed #AAE0E0">
-						<p><span style="color:#EB7350">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Earticle,0,66).'..'!!}</span></p>
+						<a href="/release/releaseshow/{{$v['Eid']}}"><p><span style="color:#EB7350">{{$v->Ualais}}</span> : <span class="result">{!!mb_substr($v->Earticle,0,66).'..'!!}</span></p></a>
 						<p>
 							@if($v->Eimg != null)
 							@foreach($v->Eimg as $key => $value)

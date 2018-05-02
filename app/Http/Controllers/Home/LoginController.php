@@ -42,7 +42,7 @@ class LoginController extends Controller
     public function postAjaxemail(Request $request)
     {
         $data = $request -> all();
-        $data_email = User::where('Uemail',$data['Uemail'])->first();
+        $data_email = User::where('Uemail',$data['Uemail']) -> where('deleted_at','=',null) -> first();
         //检测是否存在邮箱
         if(empty($data_email['Uemail'])){
             echo 0;
@@ -57,7 +57,7 @@ class LoginController extends Controller
     public function postAjaxtel(Request $request)
     {
         $data = $request -> all();
-        $data_utel = User::where('Utel',$data['Utel'])->first();
+        $data_utel = User::where('Utel',$data['Utel']) -> where('deleted_at','=',null) -> first();
         //检测是否存在手机号
         if(empty($data_utel['Utel'])){
             echo 0;
@@ -75,7 +75,7 @@ class LoginController extends Controller
         $data_email =$data['Uemail'];
 
         $hash = $data['Upassword'];
-        $data_hash = User::where('Uemail',$data_email) -> where('Upassswd',$hash)-> first();
+        $data_hash = User::where('Uemail',$data_email) -> where('Upassswd',$hash) -> first();
         //检测是否存在密码
         if(empty($data_hash)){
             echo 0;//密码不正确
@@ -140,7 +140,7 @@ class LoginController extends Controller
         $data1 = $request->only(['Uemail', 'password','code']);
         if(!empty($data1['Uemail'])){
             //检测是否存在邮箱
-            $data_email = User::where('Uemail',$data1['Uemail'])->first();
+            $data_email = User::where('Uemail',$data1['Uemail']) -> where('deleted_at','=',null) ->first();
             if(!empty($data_email['Uemail'])){
                 $data_password = User:: where('Uemail',$data1['Uemail']) ->where('Upassswd',$data1['password']) ->first();
                 if(empty($data_password)){
@@ -160,7 +160,7 @@ class LoginController extends Controller
         $data2 = $request->only(['Utel', 'telpassword','code2']);
         if(!empty($data2['Utel'])){  
             //检测手机号是否存在
-            $data_utel = User::where('Utel',$data2['Utel'])->first();
+            $data_utel = User::where('Utel',$data2['Utel'])-> where('deleted_at','=',null) ->first();
             //检测是否存在手机号
             if(!empty($data_utel['Utel'])){
                 $data_password = User:: where('Utel',$data2['Utel']) ->where('Upassswd',$data2['telpassword']) ->first();

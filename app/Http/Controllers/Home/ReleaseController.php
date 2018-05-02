@@ -376,4 +376,32 @@ class ReleaseController extends Controller
             'collect'=>$collect,
             ]);
     }
+    /**
+     * 删除发布
+     */
+    public function getDel(Request $request)
+    {
+        //发布的Eid
+        $Eid = $request -> input('Eid');
+        
+        //通过session查找用户
+        $Ualais = session('home_login');
+        $user = User::where('Ualais',$Ualais)->orWhere('Uemail',$Ualais) -> orWhere('Utel',$Ualais)->first();//查询用户的信息
+        //查找发布内容
+        $data = Release::find($Eid);
+
+        //判断是不是发布的用户
+        if($user['Ualais'] == $data['Ualais']){
+            $data -> Etype = '用户删除';
+            $data -> save();
+            $res = $data -> delete();
+            if($res){
+                echo 1;
+            } else{
+                echo 0;
+            }
+        }else{
+            echo 0;
+        }
+    }
 }

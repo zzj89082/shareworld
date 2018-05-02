@@ -21,23 +21,12 @@
                                       <input class="form-control" id="type" name="type" value="" minlength="2" type="text" required/>
                                   </div>
                               </div>
-                             <!-- <script type="text/javascript">
-			                  	$(function(){
-
-				                  	$('#type').blur(function(){
-				                  		var Ttype = $('#type').first().val();
-				                  		// console.log(type);
-				                  		$.ajaxSetup({
-										        headers: {
-										            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-										        }
-										});
-				                  		$.post('/admin/type',{'Ttype':Ttype},function(msg){
-				                  			alert(msg);
-				                  		},'html');
-				                  	});
-			                  	});
-			                  </script> -->
+                              <div class="form-group ">
+                                  <label for="url" class="control-label col-lg-2">分类地址<span class="required">*</span></label>
+                                  <div class="col-lg-10">
+                                      <input class="form-control" id="url" name="url" value="" minlength="2" type="text" required/>
+                                  </div>
+                              </div>
                               <div class="form-group">
                                   <div class="col-lg-offset-2 col-lg-10">
                                       <button class="btn btn-primary" type="submit">添加</button>

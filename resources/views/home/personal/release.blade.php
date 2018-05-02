@@ -5,7 +5,7 @@
 		   <!-- 文本框 -->
 		   <div class="coment-form" style="margin-top:0em">
 				<h4>留下你的足迹　<i class="glyphicon glyphicon-comment"></i></h4>
-				<form action="/release/publish" method="post" class="publish" enctype="multipart/form-data">
+				<form action="/release/publish" method="post" class="publish" enctype="multipart/form-data" id="uform">
 						{{csrf_field()}}
 						<!-- <div id="result">解析后div</div> -->
 				        <!-- <input class="submit" type="button" value="解析"> -->
@@ -39,6 +39,23 @@
 					<!-- 此隐藏域是为了传参 -->
 					<img id="profile" src="" style="display:none;">
 				</form>
+				<!-- 文本框验证 -->
+				<script type="text/javascript">
+				    $("#content").blur(function(){  
+				         if($(this).val().length < 5){
+			         		layer.msg('内容不能为空<br />或者<br />小于5个字符哦~亲',{
+									time:2000,
+							});
+				         }
+				    });
+				    $("#uform").submit(function(){
+				    	if($("#content").val().length < 5){
+						  return false;
+						} else {
+						  return true;
+						}
+					});
+				</script>
 				<!-- 图片视频end -->
 				<!-- 表情 -->
 				<script type="text/javascript">
@@ -165,6 +182,10 @@
 							<a href="/release/releaseshow/{{$v['Eid']}}">
 								<i class="glyphicon glyphicon-comment"></i>{{$v['count']}} 
 							</a>
+
+							<span style="margin-left:30px;">
+								<button style="background:none;border:none;color:red;cursor: pointer;" class="releaseDel" name="{{$v->Eid}}">删 除</button>
+							</span>
 							@if(strstr($v['Elike_Uid'],(string)$user['Uid']))
 								<button class="layui-btn layui-btn-danger dianzan" style="position:absolute;right:10px;bottom:0px;background-color: #5FB878;" name="{{$v->Eid}}" alt="1" value="{{$user['Uid']}}">
 								<i class="glyphicon glyphicon-heart-empty" style="font-size:14px;"></i>
@@ -195,6 +216,7 @@
 						])->render() !!}
 				     </div>
 				</div>
+				<!-- 点赞 -->
 				<script type="text/javascript">
 					$('.dianzan').click(function(){
 						var a = $(this).find('span').text();
@@ -287,6 +309,24 @@
 					      		
 					      	},'HTML');
 						}
+					});
+				</script>
+				<!-- 删除 -->
+				<script type="text/javascript">	
+					$('.releaseDel').click(function(){
+						var eid = $(this).attr('name');//当前登陆的用户
+						$.get('/release/del',{'Eid':eid},function(msg){
+				      		if(msg == 1){
+				      			layer.msg('删除成功', {
+						        	time: 2000, //20s后自动关闭
+						      	});
+				      		} else {
+				      			layer.msg('删除失败', {
+						        	time: 2000, //20s后自动关闭
+						      	});
+				      		}
+				      		
+				      	},'HTML');
 					});
 				</script>
 

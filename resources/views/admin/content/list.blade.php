@@ -13,30 +13,38 @@
                       <li class="active">
                           <a data-toggle="tab" href="#remen" class="active">热门</a>
                       </li>
+                      @foreach($data as $v)
                       <li class="">
-                          <a data-toggle="tab" href="#toutao">头条</a>
+                          <a data-toggle="tab" href="#{{ $v->Turl }}">{{ $v->Ttype }}</a>
+                      </li>
+                      @endforeach
+                      <!-- <li class="">
+                          <a data-toggle="tab" href="#top">头条</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#shipin">视频</a>
+                          <a data-toggle="tab" href="#video">视频</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#xinxianshi">新鲜事</a>
+                          <a data-toggle="tab" href="#novelty">新鲜事</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#gaoxiao">搞笑</a>
+                          <a data-toggle="tab" href="#cold">搞笑</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#shishang">时尚</a>
+                          <a data-toggle="tab" href="#fashion">时尚</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#junshi">军事</a>
+                          <a data-toggle="tab" href="#military">军事</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#meinv">美女</a>
+                          <a data-toggle="tab" href="#gril">美女</a>
                       </li>
                       <li class="">
-                          <a data-toggle="tab" href="#tiyu">体育</a>
+                          <a data-toggle="tab" href="#sport">体育</a>
                       </li>
+                      <li class="">
+                          <a data-toggle="tab" href="#bagua">八卦</a>
+                      </li> -->
                   </ul>
               </header>
               <div class="panel-body">
@@ -85,7 +93,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="toutao" class="tab-pane">
+                      <div id="top" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -128,7 +136,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="shipin" class="tab-pane">
+                      <div id="video" class="tab-pane">
                       	<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -171,7 +179,7 @@
 			              </div>
 			          </section>
 			      </div>
-                      <div id="xinxianshi" class="tab-pane">
+                      <div id="novelty" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -214,7 +222,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="gaoxiao" class="tab-pane">
+                      <div id="cold" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -257,7 +265,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="shishang" class="tab-pane">
+                      <div id="fashion" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -300,7 +308,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="junshi" class="tab-pane">
+                      <div id="military" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -343,7 +351,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="meinv" class="tab-pane">
+                      <div id="gril" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -386,7 +394,7 @@
 			              </div>
 			          </section>
                       </div>
-                      <div id="tiyu" class="tab-pane">
+                      <div id="sport" class="tab-pane">
 						<section class="panel">
 			              <header class="panel-heading">
 			                  {{$title}}
@@ -425,6 +433,49 @@
 			                </table>
 			                <div class="text-center">
 				                  {!! $data9->render() !!}
+				              </div>
+			              </div>
+			          </section>
+                      </div>
+                      <div id="bagua" class="tab-pane">
+						<section class="panel">
+			              <header class="panel-heading">
+			                  {{$title}}
+			              </header>
+			              <div class="table-responsive">
+			                <table class="table">
+			                  <thead>
+			                    <tr>
+			                      <th>ID</th>
+			                      <th>所属类别</th>
+			                      <th>文章标题</th>
+			                      <th>文章图片</th>
+			                      <th>文章内容</th>
+			                      <th>操作</th>
+			                    </tr>
+			                  </thead>
+			                  <tbody>
+			                  	@foreach($data10 as $k => $v)
+			                    <tr>
+			                      <td style="line-height:50px;">{{$v->Cid}}</td>
+			                      <td style="line-height:50px;">{{$v->Ccategory}}</td>
+			                      <td style="line-height:50px;">{{mb_substr($v->Ctitle,0,10).'..'}}</td>
+			                      <td><img src="{{$v->Cpicture}}" class="Rimg"  style="height:50px"></td>
+			                      <td style="line-height:50px;">{{mb_substr($v->Ccontent,0,30).'..'}}</td>
+			                      <td style="line-height:50px;">
+			                      <a class="btn btn-info" href="/admin/content/{{$v->Cid}}"  style="border-radius: 8px;"><i class="icon_close_alt2"> 详情</i></a>
+			                      	<form action="/admin/content/{{ $v->Cid }}" method="post" style="display:inline;">
+										{{ csrf_field() }}
+										{{ method_field('DELETE') }}
+										<button class="btn btn-danger" type="submit" onclick="return confirm('确认要删除吗？')"><i class="icon_close_alt2"> 删除</i></button>
+									</form>
+			                      </td>
+			                    </tr>
+								@endforeach
+			                  </tbody>
+			                </table>
+			                <div class="text-center">
+				                  {!! $data10->render() !!}
 				              </div>
 			              </div>
 			          </section>

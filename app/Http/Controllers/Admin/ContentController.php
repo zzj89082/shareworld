@@ -18,8 +18,8 @@ class ContentController extends Controller
      */
     public function index()
     {
+        $data = Type::where('Ttype','!=','热门')->get();
         $data1 = Content::where('Ccategory','热门')->orderby('Cid','desc');
-
         $data1 = $data1->paginate(5);
         $data2 = Content::where('Ccategory','头条')->orderby('Cid','desc');
         $data2 = $data2->paginate(5);
@@ -37,8 +37,11 @@ class ContentController extends Controller
         $data8 = $data8->paginate(5);
         $data9 = Content::where('Ccategory','体育')->orderby('Cid','desc');
         $data9 = $data9->paginate(5);
+        $data10 = Content::where('Ccategory','八卦')->orderby('Cid','desc');
+        $data10 = $data10->paginate(5);
         return view('/admin/content/list',[
             'title'=>'内容列表',
+            'data'=>$data,
             'data1'=>$data1,
             'data2'=>$data2,
             'data3'=>$data3,
@@ -48,6 +51,7 @@ class ContentController extends Controller
             'data7'=>$data7,
             'data8'=>$data8,
             'data9'=>$data9,
+            'data10'=>$data10,
         ]);
     }
 

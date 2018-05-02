@@ -49,6 +49,7 @@ class TypeController extends Controller
             //往数据库添加数据
             $type = new Type;
             $type->Ttype = $data['type'];
+            $type->Turl = $data['url'];
             $res = $type->save();
             if($res){
                 return redirect('admin/type/')->with('success','添加成功');

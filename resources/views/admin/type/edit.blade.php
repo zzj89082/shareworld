@@ -22,6 +22,12 @@
                                       <input class="form-control" id="Ttype" name="Ttype" value="{{$data->Ttype}}" minlength="2" type="text" required/>
                                   </div>
                               </div>
+                              <div class="form-group ">
+                                  <label for="Turl" class="control-label col-lg-2">分类名称<span class="required">*</span></label>
+                                  <div class="col-lg-10">
+                                      <input class="form-control" id="Turl" name="Turl" value="{{$data->Turl}}" minlength="2" type="text" required/>
+                                  </div>
+                              </div>
                               <div class="form-group">
                                   <div class="col-lg-offset-2 col-lg-10">
                                       <button class="btn btn-warning" type="submit">修改</button>
